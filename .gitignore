@@ -11,7 +11,7 @@ obj/
 Debug/
 Release/
 
-# --- PUBLICACIÓN Y TEMPORALES ---
+# --- PUBLICACIÃ“N Y TEMPORALES ---
 publish/
 *.tmp
 *.log
@@ -19,7 +19,7 @@ publish/
 *.cache
 *.zip
 
-# --- CONFIGURACIÓN LOCAL ---
+# --- CONFIGURACIÃ“N LOCAL ---
 appsettings.Development.json
 appsettings.Local.json
 *.db
