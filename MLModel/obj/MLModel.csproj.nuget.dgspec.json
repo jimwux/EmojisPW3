@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\MLModel\\MLModel.csproj": {}
+    "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\MLModel\\MLModel.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\MLModel\\MLModel.csproj": {
+    "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\MLModel\\MLModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\MLModel\\MLModel.csproj",
+        "projectUniqueName": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\MLModel\\MLModel.csproj",
         "projectName": "MLModel",
-        "projectPath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\MLModel\\MLModel.csproj",
+        "projectPath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\MLModel\\MLModel.csproj",
         "packagesPath": "C:\\Users\\jimwu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\MLModel\\obj\\",
+        "outputPath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\MLModel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

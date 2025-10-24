@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using PW3.Emoji.Entidades.EF;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<Pw320252cEmojiContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

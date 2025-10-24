@@ -1,25 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\",
+  "WorkspaceRootPath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4C305E3D-990F-496E-92E4-A84D44F1FB35}|PW3.Emoji.Logica\\PW3.Emoji.Logica.csproj|c:\\users\\jimwu\\source\\repos\\pw3.emoji.web\\pw3.emoji.logica\\pw3.emoji.logica.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{F1FCF871-1865-4562-832F-6632FC4BFDD4}|PW3.Emoji.Web\\PW3.Emoji.Web.csproj|c:\\users\\jimwu\\source\\repos\\pw3.emoji\\pw3.emoji.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1FCF871-1865-4562-832F-6632FC4BFDD4}|PW3.Emoji.Web\\PW3.Emoji.Web.csproj|solutionrelative:pw3.emoji.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1FCF871-1865-4562-832F-6632FC4BFDD4}|PW3.Emoji.Web\\PW3.Emoji.Web.csproj|c:\\users\\jimwu\\source\\repos\\pw3.emoji\\pw3.emoji.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F1FCF871-1865-4562-832F-6632FC4BFDD4}|PW3.Emoji.Web\\PW3.Emoji.Web.csproj|solutionrelative:pw3.emoji.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\Entidades\\Pw320252cEmojiContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:PW3.Emoji.Web\\Entidades\\Pw320252cEmojiContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4C305E3D-990F-496E-92E4-A84D44F1FB35}|PW3.Emoji.Logica\\PW3.Emoji.Logica.csproj|c:\\users\\jimwu\\source\\repos\\pw3.emoji\\pw3.emoji.logica\\pw3.emoji.logica.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{4C305E3D-990F-496E-92E4-A84D44F1FB35}|PW3.Emoji.Logica\\PW3.Emoji.Logica.csproj|solutionrelative:pw3.emoji.logica\\pw3.emoji.logica.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{433DCFC3-C17A-42C4-9DBF-D51A74197680}|MLModel\\MLModel.csproj|c:\\users\\jimwu\\source\\repos\\pw3.emoji.web\\mlmodel\\mlmodel.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{433DCFC3-C17A-42C4-9DBF-D51A74197680}|MLModel\\MLModel.csproj|c:\\users\\jimwu\\source\\repos\\pw3.emoji\\mlmodel\\mlmodel.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{433DCFC3-C17A-42C4-9DBF-D51A74197680}|MLModel\\MLModel.csproj|solutionrelative:mlmodel\\mlmodel.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{433DCFC3-C17A-42C4-9DBF-D51A74197680}|MLModel\\MLModel.csproj|c:\\users\\jimwu\\source\\repos\\pw3.emoji.web\\mlmodel\\mlmodel1.mbconfig||{93FA4DC3-61EC-47AF-B0BA-50CAD3CAF049}",
-      "RelativeMoniker": "D:0:0:{433DCFC3-C17A-42C4-9DBF-D51A74197680}|MLModel\\MLModel.csproj|solutionrelative:mlmodel\\mlmodel1.mbconfig||{93FA4DC3-61EC-47AF-B0BA-50CAD3CAF049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1FCF871-1865-4562-832F-6632FC4BFDD4}|PW3.Emoji.Web\\PW3.Emoji.Web.csproj|c:\\users\\jimwu\\source\\repos\\pw3.emoji.web\\pw3.emoji.web\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{F1FCF871-1865-4562-832F-6632FC4BFDD4}|PW3.Emoji.Web\\PW3.Emoji.Web.csproj|c:\\users\\jimwu\\source\\repos\\pw3.emoji\\pw3.emoji.web\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F1FCF871-1865-4562-832F-6632FC4BFDD4}|PW3.Emoji.Web\\PW3.Emoji.Web.csproj|solutionrelative:pw3.emoji.web\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F1FCF871-1865-4562-832F-6632FC4BFDD4}|PW3.Emoji.Web\\PW3.Emoji.Web.csproj|c:\\users\\jimwu\\source\\repos\\pw3.emoji.web\\pw3.emoji.web\\pw3.emoji.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{F1FCF871-1865-4562-832F-6632FC4BFDD4}|PW3.Emoji.Web\\PW3.Emoji.Web.csproj|c:\\users\\jimwu\\source\\repos\\pw3.emoji\\pw3.emoji.web\\pw3.emoji.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{F1FCF871-1865-4562-832F-6632FC4BFDD4}|PW3.Emoji.Web\\PW3.Emoji.Web.csproj|solutionrelative:pw3.emoji.web\\pw3.emoji.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
@@ -30,73 +38,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PW3.Emoji.Logica",
-              "DocumentMoniker": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\PW3.Emoji.Logica\\PW3.Emoji.Logica.csproj",
-              "RelativeDocumentMoniker": "PW3.Emoji.Logica\\PW3.Emoji.Logica.csproj",
-              "ToolTip": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\PW3.Emoji.Logica\\PW3.Emoji.Logica.csproj",
-              "RelativeToolTip": "PW3.Emoji.Logica\\PW3.Emoji.Logica.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-23T23:19:55.161Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MLModel.csproj",
-              "DocumentMoniker": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\MLModel\\MLModel.csproj",
-              "RelativeDocumentMoniker": "MLModel\\MLModel.csproj",
-              "ToolTip": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\MLModel\\MLModel.csproj",
-              "RelativeToolTip": "MLModel\\MLModel.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-23T22:47:13.771Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MLModel1.mbconfig",
-              "DocumentMoniker": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\MLModel\\MLModel1.mbconfig",
-              "RelativeDocumentMoniker": "MLModel\\MLModel1.mbconfig",
-              "ToolTip": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\MLModel\\MLModel1.mbconfig",
-              "RelativeToolTip": "MLModel\\MLModel1.mbconfig",
-              "Icon": "7f5c38b0-f0bc-4551-a9a8-b4f467cc4670.000012|",
-              "WhenOpened": "2025-10-23T22:32:20.483Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "_ViewImports.cshtml",
-              "DocumentMoniker": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\PW3.Emoji.Web\\Views\\_ViewImports.cshtml",
-              "RelativeDocumentMoniker": "PW3.Emoji.Web\\Views\\_ViewImports.cshtml",
-              "ToolTip": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\PW3.Emoji.Web\\Views\\_ViewImports.cshtml",
-              "RelativeToolTip": "PW3.Emoji.Web\\Views\\_ViewImports.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-23T22:29:23.821Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PW3.Emoji.Web.csproj",
-              "DocumentMoniker": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\PW3.Emoji.Web\\PW3.Emoji.Web.csproj",
-              "RelativeDocumentMoniker": "PW3.Emoji.Web\\PW3.Emoji.Web.csproj",
-              "ToolTip": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\PW3.Emoji.Web\\PW3.Emoji.Web.csproj",
-              "RelativeToolTip": "PW3.Emoji.Web\\PW3.Emoji.Web.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-23T21:22:16.374Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -109,6 +55,96 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\Program.cs",
+              "RelativeDocumentMoniker": "PW3.Emoji.Web\\Program.cs",
+              "ToolTip": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\Program.cs",
+              "RelativeToolTip": "PW3.Emoji.Web\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T02:01:09.196Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\appsettings.json",
+              "RelativeDocumentMoniker": "PW3.Emoji.Web\\appsettings.json",
+              "ToolTip": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\appsettings.json",
+              "RelativeToolTip": "PW3.Emoji.Web\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-24T01:54:45.778Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Pw320252cEmojiContext.cs",
+              "DocumentMoniker": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\Entidades\\Pw320252cEmojiContext.cs",
+              "RelativeDocumentMoniker": "PW3.Emoji.Web\\Entidades\\Pw320252cEmojiContext.cs",
+              "ToolTip": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\Entidades\\Pw320252cEmojiContext.cs",
+              "RelativeToolTip": "PW3.Emoji.Web\\Entidades\\Pw320252cEmojiContext.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAcwIQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T01:46:38.278Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PW3.Emoji.Logica.csproj",
+              "DocumentMoniker": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Logica\\PW3.Emoji.Logica.csproj",
+              "RelativeDocumentMoniker": "PW3.Emoji.Logica\\PW3.Emoji.Logica.csproj",
+              "ToolTip": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Logica\\PW3.Emoji.Logica.csproj",
+              "RelativeToolTip": "PW3.Emoji.Logica\\PW3.Emoji.Logica.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-23T23:19:55.161Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MLModel.csproj",
+              "DocumentMoniker": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\MLModel\\MLModel.csproj",
+              "RelativeDocumentMoniker": "MLModel\\MLModel.csproj",
+              "ToolTip": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\MLModel\\MLModel.csproj",
+              "RelativeToolTip": "MLModel\\MLModel.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-23T22:47:13.771Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "PW3.Emoji.Web\\Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "PW3.Emoji.Web\\Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-23T22:29:23.821Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PW3.Emoji.Web.csproj",
+              "DocumentMoniker": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\PW3.Emoji.Web.csproj",
+              "RelativeDocumentMoniker": "PW3.Emoji.Web\\PW3.Emoji.Web.csproj",
+              "ToolTip": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\PW3.Emoji.Web.csproj",
+              "RelativeToolTip": "PW3.Emoji.Web\\PW3.Emoji.Web.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-23T21:22:16.374Z"
             },
             {
               "$type": "Bookmark",

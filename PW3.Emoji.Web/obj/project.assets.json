@@ -1814,6 +1814,20 @@
             "rid": "win"
           }
         }
+      },
+      "PW3.Emoji.Entidades/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "9.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.10"
+        },
+        "compile": {
+          "bin/placeholder/PW3.Emoji.Entidades.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PW3.Emoji.Entidades.dll": {}
+        }
       }
     }
   },
@@ -5117,13 +5131,19 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "PW3.Emoji.Entidades/1.0.0": {
+      "type": "project",
+      "path": "../PW3.Emoji.Entidades/PW3.Emoji.Entidades.csproj",
+      "msbuildProject": "../PW3.Emoji.Entidades/PW3.Emoji.Entidades.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.EntityFrameworkCore.Design >= 9.0.10",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.10",
-      "Microsoft.ML >= 4.0.2"
+      "Microsoft.ML >= 4.0.2",
+      "PW3.Emoji.Entidades >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5133,11 +5153,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\PW3.Emoji.Web\\PW3.Emoji.Web.csproj",
+      "projectUniqueName": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\PW3.Emoji.Web.csproj",
       "projectName": "PW3.Emoji.Web",
-      "projectPath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\PW3.Emoji.Web\\PW3.Emoji.Web.csproj",
+      "projectPath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\PW3.Emoji.Web.csproj",
       "packagesPath": "C:\\Users\\jimwu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\PW3.Emoji.Web\\obj\\",
+      "outputPath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5157,7 +5177,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Entidades\\PW3.Emoji.Entidades.csproj": {
+              "projectPath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\PW3.Emoji.Entidades\\PW3.Emoji.Entidades.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

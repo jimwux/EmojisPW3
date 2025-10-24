@@ -1,0 +1,52 @@
+# --- ARCHIVOS DE VISUAL STUDIO ---
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# --- COMPILADOS ---
+bin/
+obj/
+Debug/
+Release/
+
+# --- PUBLICACIÓN Y TEMPORALES ---
+publish/
+*.tmp
+*.log
+*.bak
+*.cache
+*.zip
+
+# --- CONFIGURACIÓN LOCAL ---
+appsettings.Development.json
+appsettings.Local.json
+*.db
+*.mdf
+*.ldf
+PW3.Emoji.Web/appsettings.json
+
+
+# --- ENTORNO DE ENTRENAMIENTO ML.NET ---
+MLModel/data/train/
+MLModel/data/test/
+MLModel/output/
+*.mbconfig
+*.mlnet
+*.zip
+
+# --- DATOS Y MODELOS ENTRENADOS ---
+*.onnx
+*.pb
+*.csv
+*.tsv
+
+# --- PAQUETES DE NUGET ---
+*.nupkg
+packages/
+.nuget/
+
+# --- OTROS ---
+*.DS_Store
+Thumbs.db

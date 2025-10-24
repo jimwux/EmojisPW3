@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yoxkBu60Vt4=",
+  "dgSpecHash": "kh9E7CLgcfs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji.Web\\MLModel\\MLModel.csproj",
+  "projectFilePath": "C:\\Users\\jimwu\\source\\repos\\PW3.Emoji\\MLModel\\MLModel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jimwu\\.nuget\\packages\\google.protobuf\\3.27.1\\google.protobuf.3.27.1.nupkg.sha512",
     "C:\\Users\\jimwu\\.nuget\\packages\\microsoft.ml\\4.0.2\\microsoft.ml.4.0.2.nupkg.sha512",
