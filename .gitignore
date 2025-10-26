@@ -20,8 +20,6 @@ publish/
 *.zip
 
 # --- CONFIGURACIÓN LOCAL ---
-appsettings.Development.json
-appsettings.Local.json
 *.db
 *.mdf
 *.ldf
