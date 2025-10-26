@@ -23,7 +23,6 @@ publish/
 *.db
 *.mdf
 *.ldf
-PW3.Emoji.Web/appsettings.json
 
 
 # --- ENTORNO DE ENTRENAMIENTO ML.NET ---
