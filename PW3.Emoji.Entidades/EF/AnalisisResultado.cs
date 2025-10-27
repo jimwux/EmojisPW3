@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 namespace PW3.Emoji.Entidades.EF;
 
-public partial class ResultadoAnalisi
+public partial class AnalisisResultado
 {
     public int Id { get; set; }
 
     public int ImagenId { get; set; }
 
     public int EmocionId { get; set; }
+
+    public int UsuarioId { get; set; }
 
     public double Confianza { get; set; }
 
@@ -20,4 +22,6 @@ public partial class ResultadoAnalisi
     public virtual Emocion Emocion { get; set; } = null!;
 
     public virtual Imagen Imagen { get; set; } = null!;
+
+    public virtual Usuario Usuario { get; set; } = null!;
 }

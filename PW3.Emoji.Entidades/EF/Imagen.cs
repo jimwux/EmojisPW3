@@ -17,7 +17,7 @@ public partial class Imagen
 
     public int? Alto { get; set; }
 
-    public virtual ICollection<ResultadoAnalisi> ResultadoAnalisis { get; set; } = new List<ResultadoAnalisi>();
+    public virtual ICollection<AnalisisResultado> AnalisisResultado { get; set; } = new List<AnalisisResultado>();
 
     public virtual Usuario Usuario { get; set; } = null!;
 }

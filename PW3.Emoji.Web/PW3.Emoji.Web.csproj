@@ -16,12 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PW3.Emoji.Entidades\PW3.Emoji.Entidades.csproj" />
+    <ProjectReference Include="..\PW3.Emoji.Logica\PW3.Emoji.Logica.csproj" />
   </ItemGroup>
 
 </Project>

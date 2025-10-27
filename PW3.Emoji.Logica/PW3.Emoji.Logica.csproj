@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.ML" Version="4.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MLModel\MLModel.csproj" />
+    <ProjectReference Include="..\PW3.Emoji.Entidades\PW3.Emoji.Entidades.csproj" />
+  </ItemGroup>
+
 </Project>

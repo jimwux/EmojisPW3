@@ -11,5 +11,5 @@ public partial class Emoji
 
     public string? Alias { get; set; }
 
-    public virtual ICollection<MapeoEmocionEmoji> MapeoEmocionEmojis { get; set; } = new List<MapeoEmocionEmoji>();
+    public virtual ICollection<MapeoEmocionEmoji> MapeoEmocionEmoji { get; set; } = new List<MapeoEmocionEmoji>();
 }
