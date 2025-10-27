@@ -26,7 +26,7 @@ publish/
 
 
 # --- ENTORNO DE ENTRENAMIENTO ML.NET ---
-MLModel/data/train/
+# MLModel/data/train/
 MLModel/data/test/
 MLModel/output/
 *.mbconfig
