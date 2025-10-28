@@ -11,6 +11,8 @@ builder.Services.AddDbContext<PW3_EmojiContext>(options =>
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IAnalisisEmocionLogica, AnalisisEmocionLogica>();
+builder.Services.AddScoped<IUsuarioLogica, UsuarioLogica>();
+builder.Services.AddScoped<IRolLogica, RolLogica>();
 
 var app = builder.Build();
 
@@ -31,6 +33,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Emocion}/{action=Analizar}/{id?}");
 
 app.Run();
