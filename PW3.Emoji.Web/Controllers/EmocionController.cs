@@ -14,6 +14,10 @@ public class EmocionController : Controller
     [HttpGet]
     public IActionResult Analizar()
     {
+        if (!HttpContext.Request.Cookies.ContainsKey("UsuarioId"))
+        {
+            return RedirectToAction("Login", "Usuario");
+        }
         return View();
     }
 
