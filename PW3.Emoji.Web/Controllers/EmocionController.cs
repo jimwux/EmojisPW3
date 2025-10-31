@@ -44,7 +44,6 @@ namespace PW3.Emoji.Web.Controllers
             }
 
             var results = new List<EmocionResult>();
-            // Para pruebas baja el umbral temporalmente si no ves resultados
             const float CONFIDENCE_THRESHOLD = 0.50f;
             await _analisisEmocionLogica.ProcessFacesAsync(faces, imageBytes, CONFIDENCE_THRESHOLD, results);
 
@@ -56,7 +55,10 @@ namespace PW3.Emoji.Web.Controllers
                 return View("Analizar");
             }
 
-            ViewBag.Emocion = results;
+            // Selecciona la emoción con mayor confianza
+            var emocionPrincipal = results.OrderByDescending(r => r.Confidence).First();
+
+            ViewBag.Emocion = emocionPrincipal;
             ViewBag.ImagenRuta = "/uploads/" + imagen.FileName;
 
             var rutaUploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");

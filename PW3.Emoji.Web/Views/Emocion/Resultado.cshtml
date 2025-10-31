@@ -10,16 +10,9 @@
 
 <h2>Resultado del Análisis</h2>
 
-@if (ViewBag.Emocion is List<PW3.Emoji.Logica.EmocionResult> resultados && resultados.Count > 0)
+@if (ViewBag.Emocion is PW3.Emoji.Logica.EmocionResult res)
 {
-    <ul>
-    @foreach (var res in resultados)
-    {
-        <li>
-            <strong>Emoción detectada:</strong> @res.Emocion <br />
-        </li>
-    }
-    </ul>
+    <strong>Emoción detectada:</strong> @res.Emocion <br />
 }
 else
 {
