@@ -1,55 +1,74 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PW3.Emoji.Logica;
 
-namespace PW3.Emoji.Web.Controllers;
-public class EmocionController : Controller
+namespace PW3.Emoji.Web.Controllers
 {
-    private readonly IAnalisisEmocionLogica _analisisEmocionLogica;
-
-    public EmocionController(IAnalisisEmocionLogica analisisEmocionLogica)
+    public class EmocionController : Controller
     {
-        _analisisEmocionLogica = analisisEmocionLogica;
-    }
+        private readonly ILogger<EmocionController> _logger;
+        private readonly IAnalisisEmocionLogica _analisisEmocionLogica;
 
-    [HttpGet]
-    public IActionResult Analizar()
-    {
-        if (!HttpContext.Request.Cookies.ContainsKey("UsuarioId"))
+        public EmocionController(ILogger<EmocionController> logger, IAnalisisEmocionLogica analisisEmocionLogica)
         {
-            return RedirectToAction("Login", "Usuario");
-        }
-        return View();
-    }
-
-    [HttpPost]
-    public IActionResult Analizar(IFormFile imagen)
-    {
-        if (imagen == null || imagen.Length == 0)
-            return View("Analizar");
-
-        // 1️⃣ Guardar la imagen temporalmente
-        var rutaTemporal = Path.Combine(Path.GetTempPath(), imagen.FileName);
-        using (var stream = new FileStream(rutaTemporal, FileMode.Create))
-        {
-            imagen.CopyTo(stream);
+            _logger = logger;
+            _analisisEmocionLogica = analisisEmocionLogica;
         }
 
-        // 2️⃣ Analizar la emoción
-        var emocion = _analisisEmocionLogica.ObtenerEmocionDesdeImagen(rutaTemporal);
+        [HttpGet]
+        public IActionResult Analizar()
+        {
+            if (!HttpContext.Request.Cookies.ContainsKey("UsuarioId"))
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+            return View();
+        }
 
-        // 3️⃣ Pasar la emoción y la ruta a la vista
-        ViewBag.Emocion = emocion;
-        ViewBag.ImagenRuta = "/uploads/" + imagen.FileName;
+        [HttpPost]
+        public async Task<IActionResult> Analizar(IFormFile imagen)
+        {
+            if (imagen == null || imagen.Length == 0)
+                return View("Analizar");
 
-        // 4️⃣ Guardar la imagen en wwwroot/uploads (para poder mostrarla)
-        var rutaUploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-        if (!Directory.Exists(rutaUploads))
-            Directory.CreateDirectory(rutaUploads);
+            using var memoryStream = new MemoryStream();
+            await imagen.CopyToAsync(memoryStream);
+            byte[] imageBytes = memoryStream.ToArray();
 
-        var rutaDestino = Path.Combine(rutaUploads, imagen.FileName);
-        System.IO.File.Copy(rutaTemporal, rutaDestino, true);
+            var faces = _analisisEmocionLogica.DetectFaces(imageBytes);
+            _logger.LogInformation($"POST Analizar: caras detectadas = {faces.Count}");
 
-        return View("Resultado");
+            if (faces.Count == 0)
+            {
+                TempData["Message"] = "No se detectaron caras en la imagen. Intenta con otra imagen.";
+                return View("Analizar");
+            }
+
+            var results = new List<EmocionResult>();
+            const float CONFIDENCE_THRESHOLD = 0.50f;
+            await _analisisEmocionLogica.ProcessFacesAsync(faces, imageBytes, CONFIDENCE_THRESHOLD, results);
+
+            _logger.LogInformation($"POST Analizar: resultados totales = {results.Count}, reconocidos = {results.Count(r => r.IsRecognized)}");
+
+            if (results.Count == 0)
+            {
+                TempData["Message"] = "No se obtuvieron predicciones del modelo. Revisa los logs y las imágenes en /debug_faces.";
+                return View("Analizar");
+            }
+
+            // Selecciona la emoción con mayor confianza
+            var emocionPrincipal = results.OrderByDescending(r => r.Confidence).First();
+
+            ViewBag.Emocion = emocionPrincipal;
+            ViewBag.ImagenRuta = "/uploads/" + imagen.FileName;
+
+            var rutaUploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            if (!Directory.Exists(rutaUploads))
+                Directory.CreateDirectory(rutaUploads);
+
+            var rutaDestino = Path.Combine(rutaUploads, imagen.FileName);
+            System.IO.File.WriteAllBytes(rutaDestino, imageBytes);
+
+            return View("Resultado");
+        }
     }
-
 }

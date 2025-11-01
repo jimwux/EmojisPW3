@@ -10,7 +10,14 @@
 
 <h2>Resultado del Análisis</h2>
 
-<p><strong>Emoción detectada:</strong> @ViewBag.Emocion</p>
+@if (ViewBag.Emocion is PW3.Emoji.Logica.EmocionResult res)
+{
+    <strong>Emoción detectada:</strong> @res.Emocion <br />
+}
+else
+{
+    <p>No se detectó ninguna emoción.</p>
+}
 
 @if (ViewBag.ImagenRuta != null)
 {
