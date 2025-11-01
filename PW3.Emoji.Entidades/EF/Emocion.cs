@@ -11,7 +11,5 @@ public partial class Emocion
 
     public string? Descripcion { get; set; }
 
-    public virtual ICollection<AnalisisResultado> AnalisisResultado { get; set; } = new List<AnalisisResultado>();
-
-    public virtual MapeoEmocionEmoji? MapeoEmocionEmoji { get; set; }
+    public virtual ICollection<AnalisisResultado> AnalisisResultados { get; set; } = new List<AnalisisResultado>();
 }

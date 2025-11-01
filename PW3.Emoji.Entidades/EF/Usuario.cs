@@ -15,9 +15,9 @@ public partial class Usuario
 
     public int RolId { get; set; }
 
-    public virtual ICollection<AnalisisResultado> AnalisisResultado { get; set; } = new List<AnalisisResultado>();
+    public virtual ICollection<AnalisisResultado> AnalisisResultados { get; set; } = new List<AnalisisResultado>();
 
-    public virtual ICollection<Imagen> Imagen { get; set; } = new List<Imagen>();
+    public virtual ICollection<Imagen> Imagens { get; set; } = new List<Imagen>();
 
     public virtual Rol Rol { get; set; } = null!;
 }
