@@ -1,20 +1,143 @@
 ﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+    Esta es tu vista de Razor (.cshtml) con estilos CSS integrados.
 *@
-@{
-}
-
 @{
     ViewData["Title"] = "Resultado del Análisis";
 }
 
-<h2>Resultado del Análisis</h2>
+<style>
+    /* * Contenedor principal para centrar la tarjeta en la página.
+         * Si esta vista se carga dentro de un Layout que ya centra,
+         * puedes quitar el .vista-centrada-wrapper y poner sus estilos
+         * directamente en .analisis-container (excepto el display:flex).
+        */
+    .vista-centrada-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh; /* Altura mínima para centrar verticalmente */
+        width: 100%;
+        background-color: #f4f7f6; /* Un fondo gris muy suave */
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        padding: 20px;
+        box-sizing: border-box;
+    }
 
-<p><strong>Emoción detectada:</strong> @ViewBag.Emocion</p>
+    /* La tarjeta que contiene los resultados */
+    .analisis-container {
+        background-color: #ffffff;
+        border-radius: 16px; /* Bordes más redondeados */
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08); /* Sombra suave */
+        padding: 2.5rem 3rem; /* Más espacio interno */
+        text-align: center;
+        max-width: 450px;
+        width: 100%;
+        /* Animación de entrada */
+        animation: fadeIn 0.5s ease-out;
+    }
 
-@if (ViewBag.ImagenRuta != null)
-{
-    <img src="@ViewBag.ImagenRuta" alt="Imagen analizada" style="max-width:300px;" />
-}
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
 
-<a asp-action="Analizar">Analizar otra imagen</a>
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Título "Resultado del Análisis" */
+    .analisis-container h2 {
+        color: #2c3e50;
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        font-size: 1.75rem;
+    }
+
+    /* --- REQUISITO: Destacar "Emoción detectada" --- */
+    .etiqueta-emocion {
+        font-size: 1.5rem; /* Más grande */
+        font-weight: 600; /* Negrita */
+        color: #34495e; /* Un gris azulado oscuro */
+        margin-bottom: 0.5rem; /* Menos espacio antes del emoji */
+    }
+
+    /* --- REQUISITO: Destacar el Emoji --- */
+    .emoji-display {
+        font-size: 7rem; /* ¡Enorme! */
+        line-height: 1;
+        margin: 1rem 0;
+        /* Animación sutil al aparecer */
+        animation: pulse-emoji 0.8s ease-out;
+    }
+
+    @@keyframes pulse-emoji {
+        0% {
+            transform: scale(0.8);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+
+    /* Estilo para la imagen analizada */
+    .imagen-analizada {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px; /* Bordes redondeados para la imagen */
+        margin-top: 2rem;
+        border: 1px solid #ecf0f1; /* Borde sutil */
+    }
+
+    /* Estilo para el enlace (convertido en botón) */
+    .btn-analizar-otro {
+        display: inline-block;
+        /* Un gradiente fresco */
+        background-image: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: #ffffff;
+        padding: 14px 32px; /* Más grande y cómodo */
+        font-size: 1.1rem;
+        font-weight: 500;
+        text-decoration: none;
+        border-radius: 50px; /* Forma de píldora */
+        margin-top: 2.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+    }
+
+        .btn-analizar-otro:hover {
+            transform: translateY(-3px); /* Efecto de "levantar" */
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.35);
+        }
+
+</style>
+
+<div class="vista-centrada-wrapper">
+
+    <div class="analisis-container">
+
+        <h2>@ViewData["Title"]</h2>
+
+        <p class="etiqueta-emocion">Emoción detectada:</p>
+
+        <p class="emoji-display">@ViewBag.Emocion</p>
+
+        @if (ViewBag.ImagenRuta != null)
+        {
+            <img src="@ViewBag.ImagenRuta" alt="Imagen analizada" class="imagen-analizada" />
+        }
+
+        <a asp-action="Analizar" class="btn-analizar-otro">Analizar otra imagen</a>
+
+    </div>
+
+</div>

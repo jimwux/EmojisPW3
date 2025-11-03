@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PW3.Emoji.Logica.Utils;
 
 namespace PW3.Emoji.Logica;
 public interface IAnalisisEmocionLogica
@@ -22,6 +23,6 @@ public class AnalisisEmocionLogica : IAnalisisEmocionLogica
             .OrderByDescending(r => r.Value)
             .FirstOrDefault().Key ?? "Desconocida";
 
-        return emocionTop;
+        return EmotionTraduction.Traduct(emocionTop);
     }
 }
