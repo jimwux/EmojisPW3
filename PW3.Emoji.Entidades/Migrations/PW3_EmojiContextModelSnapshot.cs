@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PW3.Emoji.Entidades.EF;
 
@@ -16,39 +15,33 @@ namespace PW3.Emoji.Entidades.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.10")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.10");
 
             modelBuilder.Entity("PW3.Emoji.Entidades.EF.AnalisisResultado", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<double>("Confianza")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<int>("EmocionId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("FechaAnalisis")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("TEXT")
                         .HasDefaultValueSql("(sysutcdatetime())");
 
                     b.Property<int>("ImagenId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("VectorJson")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id")
                         .HasName("PK__Analisis__3214EC07E3FD976B");
@@ -59,25 +52,23 @@ namespace PW3.Emoji.Entidades.Migrations
 
                     b.HasIndex(new[] { "UsuarioId" }, "IX_Analisis_UsuarioId");
 
-                    b.ToTable("AnalisisResultado");
+                    b.ToTable("AnalisisResultado", (string)null);
                 });
 
             modelBuilder.Entity("PW3.Emoji.Entidades.EF.Emocion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Descripcion")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id")
                         .HasName("PK__Emocion__3214EC0709188CAD");
@@ -85,136 +76,82 @@ namespace PW3.Emoji.Entidades.Migrations
                     b.HasIndex(new[] { "Nombre" }, "UQ_Emocion_Nombre")
                         .IsUnique();
 
-                    b.ToTable("Emocion");
-                });
-
-            modelBuilder.Entity("PW3.Emoji.Entidades.EF.Emoji", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Alias")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("CodigoUnicode")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.HasKey("Id")
-                        .HasName("PK__Emoji__3214EC07EBBB0A7D");
-
-                    b.ToTable("Emoji");
+                    b.ToTable("Emocion", (string)null);
                 });
 
             modelBuilder.Entity("PW3.Emoji.Entidades.EF.Imagen", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Alto")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Ancho")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("FechaSubida")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("TEXT")
                         .HasDefaultValueSql("(sysutcdatetime())");
 
                     b.Property<string>("Ruta")
                         .IsRequired()
                         .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id")
                         .HasName("PK__Imagen__3214EC0739CCA6A4");
 
                     b.HasIndex(new[] { "UsuarioId" }, "IX_Imagen_UsuarioId");
 
-                    b.ToTable("Imagen");
-                });
-
-            modelBuilder.Entity("PW3.Emoji.Entidades.EF.MapeoEmocionEmoji", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("EmocionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmojiId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id")
-                        .HasName("PK__MapeoEmo__3214EC075C79F2E8");
-
-                    b.HasIndex("EmojiId");
-
-                    b.HasIndex(new[] { "EmocionId" }, "UQ_Mapeo_EmocionId")
-                        .IsUnique();
-
-                    b.ToTable("MapeoEmocionEmoji");
+                    b.ToTable("Imagen", (string)null);
                 });
 
             modelBuilder.Entity("PW3.Emoji.Entidades.EF.Rol", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id")
                         .HasName("PK__Rol__3214EC077CE478FD");
 
-                    b.ToTable("Rol");
+                    b.ToTable("Rol", (string)null);
                 });
 
             modelBuilder.Entity("PW3.Emoji.Entidades.EF.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("HashPassword")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("RolId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id")
                         .HasName("PK__Usuario__3214EC07EBC80A05");
@@ -224,25 +161,25 @@ namespace PW3.Emoji.Entidades.Migrations
                     b.HasIndex(new[] { "Email" }, "UQ_Usuario_Email")
                         .IsUnique();
 
-                    b.ToTable("Usuario");
+                    b.ToTable("Usuario", (string)null);
                 });
 
             modelBuilder.Entity("PW3.Emoji.Entidades.EF.AnalisisResultado", b =>
                 {
                     b.HasOne("PW3.Emoji.Entidades.EF.Emocion", "Emocion")
-                        .WithMany("AnalisisResultado")
+                        .WithMany("AnalisisResultados")
                         .HasForeignKey("EmocionId")
                         .IsRequired()
                         .HasConstraintName("FK_Analisis_Emocion");
 
                     b.HasOne("PW3.Emoji.Entidades.EF.Imagen", "Imagen")
-                        .WithMany("AnalisisResultado")
+                        .WithMany("AnalisisResultados")
                         .HasForeignKey("ImagenId")
                         .IsRequired()
                         .HasConstraintName("FK_Analisis_Imagen");
 
                     b.HasOne("PW3.Emoji.Entidades.EF.Usuario", "Usuario")
-                        .WithMany("AnalisisResultado")
+                        .WithMany("AnalisisResultados")
                         .HasForeignKey("UsuarioId")
                         .IsRequired()
                         .HasConstraintName("FK_Analisis_Usuario");
@@ -257,7 +194,7 @@ namespace PW3.Emoji.Entidades.Migrations
             modelBuilder.Entity("PW3.Emoji.Entidades.EF.Imagen", b =>
                 {
                     b.HasOne("PW3.Emoji.Entidades.EF.Usuario", "Usuario")
-                        .WithMany("Imagen")
+                        .WithMany("Imagens")
                         .HasForeignKey("UsuarioId")
                         .IsRequired()
                         .HasConstraintName("FK_Imagen_Usuario");
@@ -265,29 +202,10 @@ namespace PW3.Emoji.Entidades.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("PW3.Emoji.Entidades.EF.MapeoEmocionEmoji", b =>
-                {
-                    b.HasOne("PW3.Emoji.Entidades.EF.Emocion", "Emocion")
-                        .WithOne("MapeoEmocionEmoji")
-                        .HasForeignKey("PW3.Emoji.Entidades.EF.MapeoEmocionEmoji", "EmocionId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Mapeo_Emocion");
-
-                    b.HasOne("PW3.Emoji.Entidades.EF.Emoji", "Emoji")
-                        .WithMany("MapeoEmocionEmoji")
-                        .HasForeignKey("EmojiId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Mapeo_Emoji");
-
-                    b.Navigation("Emocion");
-
-                    b.Navigation("Emoji");
-                });
-
             modelBuilder.Entity("PW3.Emoji.Entidades.EF.Usuario", b =>
                 {
                     b.HasOne("PW3.Emoji.Entidades.EF.Rol", "Rol")
-                        .WithMany("Usuario")
+                        .WithMany("Usuarios")
                         .HasForeignKey("RolId")
                         .IsRequired()
                         .HasConstraintName("FK_Usuario_Rol");
@@ -297,31 +215,24 @@ namespace PW3.Emoji.Entidades.Migrations
 
             modelBuilder.Entity("PW3.Emoji.Entidades.EF.Emocion", b =>
                 {
-                    b.Navigation("AnalisisResultado");
-
-                    b.Navigation("MapeoEmocionEmoji");
-                });
-
-            modelBuilder.Entity("PW3.Emoji.Entidades.EF.Emoji", b =>
-                {
-                    b.Navigation("MapeoEmocionEmoji");
+                    b.Navigation("AnalisisResultados");
                 });
 
             modelBuilder.Entity("PW3.Emoji.Entidades.EF.Imagen", b =>
                 {
-                    b.Navigation("AnalisisResultado");
+                    b.Navigation("AnalisisResultados");
                 });
 
             modelBuilder.Entity("PW3.Emoji.Entidades.EF.Rol", b =>
                 {
-                    b.Navigation("Usuario");
+                    b.Navigation("Usuarios");
                 });
 
             modelBuilder.Entity("PW3.Emoji.Entidades.EF.Usuario", b =>
                 {
-                    b.Navigation("AnalisisResultado");
+                    b.Navigation("AnalisisResultados");
 
-                    b.Navigation("Imagen");
+                    b.Navigation("Imagens");
                 });
 #pragma warning restore 612, 618
         }
