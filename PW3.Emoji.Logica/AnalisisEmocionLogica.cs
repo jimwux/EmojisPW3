@@ -36,11 +36,11 @@ public class AnalisisEmocionLogica : IAnalisisEmocionLogica
                 .OrderByDescending(r => r.Value)
                 .FirstOrDefault().Key ?? "Desconocida";
 
-            return emocionTop;
+            return EmotionTraduction.Traduct(emocionTop);
         }
 
-        // 3. Implementación del nuevo método para guardar
-        public async Task<AnalisisResultado> GuardarAnalisisAsync(string emocionNombre, int usuarioId, string rutaImagen)
+    // 3. Implementación del nuevo método para guardar
+    public async Task<AnalisisResultado> GuardarAnalisisAsync(string emocionNombre, int usuarioId, string rutaImagen)
     {
             
             // A. Buscamos el ID de la emoción en la tabla Emocion
@@ -76,9 +76,8 @@ public class AnalisisEmocionLogica : IAnalisisEmocionLogica
 
             // E. Guardamos los cambios en la BD (esto guarda ambas tablas en una transacción)
             await _context.SaveChangesAsync();
-        }
 
-        return EmotionTraduction.Traduct(emocionTop);
+            return nuevoResultado;
     }
 
 }
