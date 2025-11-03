@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PW3.Emoji.Entidades.EF; 
 using Microsoft.EntityFrameworkCore;
+using PW3.Emoji.Logica.Utils;
 
 namespace PW3.Emoji.Logica;
 public interface IAnalisisEmocionLogica
@@ -75,8 +76,9 @@ public class AnalisisEmocionLogica : IAnalisisEmocionLogica
 
             // E. Guardamos los cambios en la BD (esto guarda ambas tablas en una transacción)
             await _context.SaveChangesAsync();
-
-            return nuevoResultado;
         }
-    
+
+        return EmotionTraduction.Traduct(emocionTop);
+    }
+
 }
