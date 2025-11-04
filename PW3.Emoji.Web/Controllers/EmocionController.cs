@@ -1,28 +1,33 @@
-﻿using Microsoft.AspNetCore.Hosting; // Necesario para _webHostEnvironment
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using PW3.Emoji.Logica;
-using System; // Necesario para Exception
-using System.IO; // Necesario para Path
+using System;
+using System.IO;
 using PW3.Emoji.Logica.Utils;
 
 namespace PW3.Emoji.Web.Controllers;
 
 public class EmocionController : Controller
 {
+    private readonly ILogger<EmocionController> _logger;
     private readonly IAnalisisEmocionLogica _analisisEmocionLogica;
     private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public EmocionController(IAnalisisEmocionLogica analisisEmocionLogica, IWebHostEnvironment webHostEnvironment)
+    public EmocionController(ILogger<EmocionController> logger, IAnalisisEmocionLogica analisisEmocionLogica, IWebHostEnvironment webHostEnvironment)
     {
+        _logger = logger;
         _analisisEmocionLogica = analisisEmocionLogica;
         _webHostEnvironment = webHostEnvironment;
     }
-    
+
     [HttpGet]
     public IActionResult Analizar()
     {
-        // Esto simplemente muestra la vista (el formulario para subir la imagen)
-        return View(); 
+        if (!HttpContext.Request.Cookies.ContainsKey("UsuarioId"))
+        {
+            return RedirectToAction("Login", "Usuario");
+        }
+        return View();
     }
 
     [HttpPost]
@@ -31,7 +36,7 @@ public class EmocionController : Controller
         if (imagen == null || imagen.Length == 0)
             return View("Analizar");
 
-        // --- 1. Obtener el ID del usuario y la ruta del archivo ---
+        // Obtener el ID del usuario
         if (!HttpContext.Request.Cookies.TryGetValue("UsuarioId", out string? usuarioIdString) 
             || !int.TryParse(usuarioIdString, out int usuarioId))
         {
@@ -44,49 +49,68 @@ public class EmocionController : Controller
         var rutaUploads = Path.Combine(wwwRootPath, "uploads");
         var rutaDestino = Path.Combine(rutaUploads, nombreArchivo);
         var rutaParaDb = "/uploads/" + nombreArchivo;
-        string emocion = "Error de Análisis"; // Valor por defecto
 
-        // --- 2. TRY-CATCH QUE ENVUELVE TODA LA LÓGICA DE ARCHIVOS E IA ---
         try
         {
-            // A. Guardar la imagen en wwwroot/uploads
+            // Guardar la imagen en wwwroot/uploads
             if (!Directory.Exists(rutaUploads))
                 Directory.CreateDirectory(rutaUploads);
 
-            using (var stream = new FileStream(rutaDestino, FileMode.Create))
+            using var memoryStream = new MemoryStream();
+            await imagen.CopyToAsync(memoryStream);
+            byte[] imageBytes = memoryStream.ToArray();
+
+            // Guardar archivo en disco
+            await System.IO.File.WriteAllBytesAsync(rutaDestino, imageBytes);
+
+            // Detectar caras en la imagen
+            var faces = _analisisEmocionLogica.DetectFaces(imageBytes);
+            _logger.LogInformation($"POST Analizar: caras detectadas = {faces.Count}");
+
+            if (faces.Count == 0)
             {
-                await imagen.CopyToAsync(stream); 
+                TempData["Message"] = "No se detectaron caras en la imagen. Intenta con otra imagen.";
+                return View("Analizar");
             }
 
-            // B. Analizar la emoción (Punto de Falla Común)
-            emocion = _analisisEmocionLogica.ObtenerEmocionDesdeImagen(rutaDestino);
+            // Procesar las caras detectadas
+            var results = new List<EmocionResult>();
+            const float CONFIDENCE_THRESHOLD = 0.50f;
+            await _analisisEmocionLogica.ProcessFacesAsync(faces, imageBytes, CONFIDENCE_THRESHOLD, results);
 
-            // C. Validación y Guardado en BD
-            if (emocion == "Desconocida" || emocion.Contains("Error") || string.IsNullOrEmpty(emocion))
+            _logger.LogInformation($"POST Analizar: resultados totales = {results.Count}, reconocidos = {results.Count(r => r.IsRecognized)}");
+
+            if (results.Count == 0)
             {
-                // Si la IA no pudo procesar la imagen o el modelo falló
-                throw new Exception($"El modelo de IA no pudo detectar la emoción. Resultado crudo: '{emocion}'. La imagen podría ser inválida o el archivo MLModel1.mlnet no se copió.");
+                TempData["Message"] = "No se obtuvieron predicciones del modelo. Revisa los logs.";
+                return View("Analizar");
             }
-            
-            // D. ¡Guardar el análisis en la BD!
-            await _analisisEmocionLogica.GuardarAnalisisAsync(emocion, usuarioId, rutaParaDb);
 
-            // 3. Pasar la emoción y la ruta a la vista
-            ViewBag.Emocion = EmotionTraduction.Traduct(emocion);
+            // Selecciona la emoción con mayor confianza
+            var emocionPrincipal = results.OrderByDescending(r => r.Confidence).First();
+            string emocionNombre = emocionPrincipal.Emocion;
+
+            // Validar que la emoción sea válida
+            if (string.IsNullOrEmpty(emocionNombre) || emocionNombre == "Desconocida")
+            {
+                throw new Exception($"El modelo de IA no pudo detectar la emoción. Resultado: '{emocionNombre}'.");
+            }
+
+            // Guardar el análisis en la BD
+            await _analisisEmocionLogica.GuardarAnalisisAsync(emocionNombre, usuarioId, rutaParaDb);
+
+            // Pasar datos a la vista
+            ViewBag.Emocion = EmotionTraduction.Traduct(emocionNombre);
             ViewBag.ImagenRuta = rutaParaDb;
-            return View("Resultado");
+            ViewBag.Confidence = emocionPrincipal.Confidence;
 
+            return View("Resultado");
         }
         catch (Exception ex)
         {
-            // 4. Captura cualquier error (archivo, IA, o DB)
-            TempData["Error"] = $"ERROR CRÍTICO: El análisis falló o la imagen no se procesó. Mensaje: {ex.Message}";
-            
-            // Devolver los datos que tenemos para debug
-            ViewBag.Emocion = emocion; // Mostrará el valor por defecto o la emoción cruda
-            ViewBag.ImagenRuta = rutaParaDb; 
-            
-            return View("Resultado"); 
+            _logger.LogError(ex, "Error al procesar la imagen");
+            TempData["Error"] = $"ERROR: El análisis falló. Mensaje: {ex.Message}";
+            return View("Analizar");
         }
     }
 }
