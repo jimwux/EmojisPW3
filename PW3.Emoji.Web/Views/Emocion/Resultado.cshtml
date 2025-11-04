@@ -1,27 +1,137 @@
 ﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+    Vista de resultado del análisis de emociones
 *@
-@{
-}
-
 @{
     ViewData["Title"] = "Resultado del Análisis";
 }
 
-<h2>Resultado del Análisis</h2>
+<style>
+    .vista-centrada-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        width: 100%;
+        background-color: #f4f7f6;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        padding: 20px;
+        box-sizing: border-box;
+    }
 
-@if (ViewBag.Emocion is PW3.Emoji.Logica.EmocionResult res)
-{
-    <strong>Emoción detectada:</strong> @res.Emocion <br />
-}
-else
-{
-    <p>No se detectó ninguna emoción.</p>
-}
+    .analisis-container {
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        padding: 2.5rem 3rem;
+        text-align: center;
+        max-width: 450px;
+        width: 100%;
+        animation: fadeIn 0.5s ease-out;
+    }
 
-@if (ViewBag.ImagenRuta != null)
-{
-    <img src="@ViewBag.ImagenRuta" alt="Imagen analizada" style="max-width:300px;" />
-}
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-<a asp-action="Analizar">Analizar otra imagen</a>
+    .analisis-container h2 {
+        color: #2c3e50;
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        font-size: 1.75rem;
+    }
+
+    .etiqueta-emocion {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #34495e;
+        margin-bottom: 0.5rem;
+    }
+
+    .emoji-display {
+        font-size: 7rem;
+        line-height: 1;
+        margin: 1rem 0;
+        animation: pulse-emoji 0.8s ease-out;
+    }
+
+    @@keyframes pulse-emoji {
+        0% {
+            transform: scale(0.8);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .confidence-badge {
+        display: inline-block;
+        background-color: #e8f5e9;
+        color: #2e7d32;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin: 1rem 0;
+    }
+
+    .imagen-analizada {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin-top: 2rem;
+        border: 1px solid #ecf0f1;
+    }
+
+    .btn-analizar-otro {
+        display: inline-block;
+        background-image: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: #ffffff;
+        padding: 14px 32px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        text-decoration: none;
+        border-radius: 50px;
+        margin-top: 2.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+    }
+
+    .btn-analizar-otro:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 123, 255, 0.35);
+    }
+</style>
+
+<div class="vista-centrada-wrapper">
+    <div class="analisis-container">
+        <h2>@ViewData["Title"]</h2>
+
+        <p class="etiqueta-emocion">Emoción detectada:</p>
+        <p class="emoji-display">@ViewBag.Emocion</p>
+
+        @if (ViewBag.Confidence != null)
+        {
+            <div class="confidence-badge">
+                Confianza: @(((float)ViewBag.Confidence * 100).ToString("F1"))%
+            </div>
+        }
+
+        @if (ViewBag.ImagenRuta != null)
+        {
+            <img src="@ViewBag.ImagenRuta" alt="Imagen analizada" class="imagen-analizada" />
+        }
+
+        <a asp-action="Analizar" class="btn-analizar-otro">Analizar otra imagen</a>
+    </div>
+</div>

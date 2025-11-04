@@ -10,6 +10,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using PW3.Emoji.Entidades.EF; 
+using Microsoft.EntityFrameworkCore;
 
 namespace PW3.Emoji.Logica
 {
@@ -18,16 +20,20 @@ namespace PW3.Emoji.Logica
         List<Rectangle> DetectFaces(byte[] imageData);
         byte[] ExtractFace(byte[] originalImage, Rectangle faceRect, int padding = 20);
         Task ProcessFacesAsync(List<Rectangle> faces, byte[] imageBytes, float CONFIDENCE_THRESHOLD, List<EmocionResult> results);
+        string ObtenerEmocionDesdeImagen(string ruta);
+        Task<AnalisisResultado> GuardarAnalisisAsync(string emocionNombre, int usuarioId, string rutaImagen);
     }
 
     public class AnalisisEmocionLogica : IAnalisisEmocionLogica
     {
         private readonly CascadeClassifier _faceCascade;
         private readonly ILogger<AnalisisEmocionLogica> _logger;
+        private readonly PW3_EmojiContext _context;
 
-        public AnalisisEmocionLogica(ILogger<AnalisisEmocionLogica> logger)
+        public AnalisisEmocionLogica(ILogger<AnalisisEmocionLogica> logger, PW3_EmojiContext context)
         {
             _logger = logger;
+            _context = context;
             string haarCascadePath = Path.Combine(AppContext.BaseDirectory, "Models", "haarcascade_frontalface_default.xml");
             string? haarCascadeDir = Path.GetDirectoryName(haarCascadePath);
             if (!File.Exists(haarCascadePath))
@@ -142,6 +148,58 @@ namespace PW3.Emoji.Logica
                     _logger.LogError(ex, $"Error al procesar la cara en posición {faceRect}");
                 }
             }
+        }
+
+        public string ObtenerEmocionDesdeImagen(string ruta)
+        {
+            var bytes = File.ReadAllBytes(ruta);
+            var input = new MLModel1.ModelInput { ImageSource = bytes };
+            var result = MLModel1.PredictAllLabels(input);
+
+            var emocionTop = result?
+                .OrderByDescending(r => r.Value)
+                .FirstOrDefault().Key ?? "Desconocida";
+
+            return emocionTop;
+        }
+
+        public async Task<AnalisisResultado> GuardarAnalisisAsync(string emocionNombre, int usuarioId, string rutaImagen)
+        {
+            // A. Buscamos el ID de la emoción en la tabla Emocion
+            var emocion = await _context.Emocion
+                .FirstOrDefaultAsync(e => e.Nombre.ToLower() == emocionNombre.ToLower());
+
+            // (Opcional) Manejar si la emoción no existe en tu tabla Emocion
+            if (emocion == null)
+            {
+                throw new Exception($"La emoción '{emocionNombre}' devuelta por el modelo no fue encontrada en la tabla 'Emocion'. Verifica que coincidan los nombres.");
+            }
+
+            // B. Creamos la entidad Imagen (porque AnalisisResultado depende de ella)
+            var nuevaImagen = new Imagen
+            {
+                Ruta = rutaImagen,
+                FechaSubida = DateTime.UtcNow,
+                UsuarioId = usuarioId 
+            };
+            
+            // C. Creamos la entidad AnalisisResultado
+            var nuevoResultado = new AnalisisResultado
+            {
+                UsuarioId = usuarioId,
+                EmocionId = emocion.Id,
+                Imagen = nuevaImagen,
+                FechaAnalisis = DateTime.UtcNow
+            };
+
+            // D. Agregamos las nuevas entidades al contexto
+            _context.Imagen.Add(nuevaImagen);
+            _context.AnalisisResultados.Add(nuevoResultado);
+
+            // E. Guardamos los cambios en la BD
+            await _context.SaveChangesAsync();
+
+            return nuevoResultado;
         }
     }
 
