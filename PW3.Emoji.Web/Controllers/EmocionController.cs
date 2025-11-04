@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting; // Necesario para _webHostEnvironment
+using Microsoft.AspNetCore.Mvc;
 using PW3.Emoji.Logica;
-using Microsoft.AspNetCore.Hosting; // Necesario para _webHostEnvironment
-using System.IO; // Necesario para Path
 using System; // Necesario para Exception
+using System.IO; // Necesario para Path
+using PW3.Emoji.Logica.Utils;
 
 namespace PW3.Emoji.Web.Controllers;
 
@@ -71,7 +72,7 @@ public class EmocionController : Controller
             await _analisisEmocionLogica.GuardarAnalisisAsync(emocion, usuarioId, rutaParaDb);
 
             // 3. Pasar la emoción y la ruta a la vista
-            ViewBag.Emocion = emocion;
+            ViewBag.Emocion = EmotionTraduction.Traduct(emocion);
             ViewBag.ImagenRuta = rutaParaDb;
             return View("Resultado");
 

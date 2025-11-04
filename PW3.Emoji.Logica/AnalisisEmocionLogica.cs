@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using PW3.Emoji.Entidades.EF; 
 using Microsoft.EntityFrameworkCore;
-using PW3.Emoji.Logica.Utils;
 
 namespace PW3.Emoji.Logica;
 public interface IAnalisisEmocionLogica
@@ -36,7 +35,7 @@ public class AnalisisEmocionLogica : IAnalisisEmocionLogica
                 .OrderByDescending(r => r.Value)
                 .FirstOrDefault().Key ?? "Desconocida";
 
-            return EmotionTraduction.Traduct(emocionTop);
+            return emocionTop;
         }
 
     // 3. Implementación del nuevo método para guardar
