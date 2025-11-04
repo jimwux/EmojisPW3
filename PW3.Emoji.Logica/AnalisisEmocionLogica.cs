@@ -21,7 +21,7 @@ namespace PW3.Emoji.Logica
         byte[] ExtractFace(byte[] originalImage, Rectangle faceRect, int padding = 20);
         Task ProcessFacesAsync(List<Rectangle> faces, byte[] imageBytes, float CONFIDENCE_THRESHOLD, List<EmocionResult> results);
         string ObtenerEmocionDesdeImagen(string ruta);
-        Task<AnalisisResultado> GuardarAnalisisAsync(string emocionNombre, int usuarioId, string rutaImagen);
+        Task<AnalisisResultado> GuardarAnalisisAsync(string emocionNombre, int usuarioId, string rutaImagen, float confianza);
     }
 
     public class AnalisisEmocionLogica : IAnalisisEmocionLogica
@@ -163,7 +163,7 @@ namespace PW3.Emoji.Logica
             return emocionTop;
         }
 
-        public async Task<AnalisisResultado> GuardarAnalisisAsync(string emocionNombre, int usuarioId, string rutaImagen)
+        public async Task<AnalisisResultado> GuardarAnalisisAsync(string emocionNombre, int usuarioId, string rutaImagen, float confianza)
         {
             // A. Buscamos el ID de la emoción en la tabla Emocion
             var emocion = await _context.Emocion
@@ -189,6 +189,7 @@ namespace PW3.Emoji.Logica
                 UsuarioId = usuarioId,
                 EmocionId = emocion.Id,
                 Imagen = nuevaImagen,
+                Confianza = confianza,
                 FechaAnalisis = DateTime.UtcNow
             };
 
