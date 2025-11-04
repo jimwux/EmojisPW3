@@ -97,7 +97,7 @@ public class EmocionController : Controller
             }
 
             // Guardar el análisis en la BD
-            await _analisisEmocionLogica.GuardarAnalisisAsync(emocionNombre, usuarioId, rutaParaDb);
+            await _analisisEmocionLogica.GuardarAnalisisAsync(emocionNombre, usuarioId, rutaParaDb, emocionPrincipal.Confidence);
 
             // Pasar datos a la vista
             ViewBag.Emocion = EmotionTraduction.Traduct(emocionNombre);
