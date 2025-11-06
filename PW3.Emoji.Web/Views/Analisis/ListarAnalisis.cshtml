@@ -1,0 +1,46 @@
+@model List<PW3.Emoji.Entidades.EF.AnalisisResultado>
+
+@{
+    ViewData["Title"] = "Listado de Análisis";
+    var paginaActual = ViewBag.PaginaActual as int? ?? 1;
+}
+
+<h2>Listado de Análisis</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Fecha de Análisis</th>
+            <th>Emoción</th>
+            <th>Usuario</th>
+            <th>Confianza</th>
+            <th>Imagen</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var analisis in Model)
+        {
+            <tr>
+                <td>@analisis.FechaAnalisis.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@analisis.Emocion?.Nombre</td>
+                <td>@analisis.Usuario?.Nombre</td>
+                <td>@analisis.Confianza.ToString("P2")</td>
+                <td>
+                    @if (analisis.Imagen != null && !string.IsNullOrEmpty(analisis.Imagen.Ruta))
+                    {
+                        <img src="@analisis.Imagen.Ruta" alt="Imagen" width="60" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    @{
+        var estiloDeshabilitado = paginaActual <= 1 ? "pointer-events: none; opacity: 0.5;" : "";
+    }
+    <a asp-action="ListarAnalisis" asp-route-pagina="@(ViewBag.PaginaActual - 1)" class="btn btn-secondary" style="@estiloDeshabilitado">Anterior</a>
+    <span>Página @ViewBag.PaginaActual</span>
+    <a asp-action="ListarAnalisis" asp-route-pagina="@(ViewBag.PaginaActual + 1)" class="btn btn-secondary">Siguiente</a>
+</div>
