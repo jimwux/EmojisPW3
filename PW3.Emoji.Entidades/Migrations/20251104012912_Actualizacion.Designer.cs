@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PW3.Emoji.Entidades.EF;
 
@@ -11,9 +12,11 @@ using PW3.Emoji.Entidades.EF;
 namespace PW3.Emoji.Entidades.Migrations
 {
     [DbContext(typeof(PW3_EmojiContext))]
-    partial class PW3_EmojiContextModelSnapshot : ModelSnapshot
+    [Migration("20251104012912_Actualizacion")]
+    partial class Actualizacion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

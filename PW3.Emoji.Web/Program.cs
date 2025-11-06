@@ -13,6 +13,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAnalisisEmocionLogica, AnalisisEmocionLogica>();
 builder.Services.AddScoped<IUsuarioLogica, UsuarioLogica>();
 builder.Services.AddScoped<IRolLogica, RolLogica>();
+builder.Services.AddScoped<IAnalisisLogica, AnalisisLogica>();
 
 var app = builder.Build();
 
