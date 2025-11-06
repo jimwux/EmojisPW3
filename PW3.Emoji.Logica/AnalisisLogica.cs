@@ -5,7 +5,7 @@ namespace PW3.Emoji.Logica;
 
 public interface IAnalisisLogica
 {
-    List<AnalisisResultado> ObtenerAnalisis(int? emocionFilter, DateTime? fechaDesde, DateTime? fechaHasta, int pagina, int? usuarioFilter = null);
+    List<AnalisisResultado> ObtenerAnalisis(int? usuarioId, int? emocionFilter, DateTime? fechaDesde, DateTime? fechaHasta, int pagina, int? usuarioFilter = null, bool esAdmin = false);
     List<Emocion> ObtenerEmociones();
     List<Usuario> ObtenerUsuarios();
 }
@@ -19,7 +19,7 @@ public class AnalisisLogica : IAnalisisLogica
         _context = context;
     }
 
-    public List<AnalisisResultado> ObtenerAnalisis(int? emocionFilter, DateTime? fechaDesde, DateTime? fechaHasta, int pagina, int? usuarioFilter = null)
+    public List<AnalisisResultado> ObtenerAnalisis(int? usuarioId, int? emocionFilter, DateTime? fechaDesde, DateTime? fechaHasta, int pagina, int? usuarioFilter = null, bool esAdmin = false)
     {
         var query = _context.AnalisisResultados
             .Include(a => a.Emocion)
@@ -27,7 +27,8 @@ public class AnalisisLogica : IAnalisisLogica
             .Include(a => a.Imagen)
             .Where(a => (!emocionFilter.HasValue || a.EmocionId == emocionFilter.Value) &&
                         (!fechaDesde.HasValue || a.FechaAnalisis >= fechaDesde.Value) &&
-                        (!fechaHasta.HasValue || a.FechaAnalisis <= fechaHasta.Value));
+                        (!fechaHasta.HasValue || a.FechaAnalisis <= fechaHasta.Value) &&
+                        (esAdmin || a.Usuario.Id == usuarioId));
 
         if (usuarioFilter.HasValue)
             query = query.Where(a => a.UsuarioId == usuarioFilter.Value);
