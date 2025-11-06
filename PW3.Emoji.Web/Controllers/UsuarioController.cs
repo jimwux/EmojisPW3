@@ -45,17 +45,23 @@ public class UsuarioController : Controller
     public IActionResult Login(string email, string password)
     {
         var usuario = _usuarioLogica.Login(email, password);
-    if (usuario != null)
-    {
-        HttpContext.Session.SetInt32("UsuarioId", usuario.Id);
-        HttpContext.Session.SetString("Rol", usuario.Rol.Nombre);
-        return RedirectToAction("Analizar", "Emocion");
-    }
+        if (usuario != null)
+        {
+            HttpContext.Session.SetInt32("UsuarioId", usuario.Id);
+            HttpContext.Session.SetString("Rol", usuario.Rol.Nombre);
+            return RedirectToAction("Analizar", "Emocion");
+        }
         else
         {
             TempData["Error"] = "Credenciales inválidas. Por favor, intente de nuevo.";
             return View();
         }
+    }
+
+    public IActionResult CerrarSesion()
+    {
+        HttpContext.Session.Clear();
+        return RedirectToAction("Login");
     }
 
 }
