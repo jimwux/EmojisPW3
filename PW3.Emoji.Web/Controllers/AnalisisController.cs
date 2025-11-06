@@ -16,7 +16,7 @@ public class AnalisisController : Controller
     [HttpGet]
     public IActionResult ListarAnalisis(int? emocionFilter, DateTime? fechaDesde = null, DateTime? fechaHasta = null, int pagina = 1, int? usuarioFilter = null)
     {
-        var analisis = _analisisLogica.ObtenerAnalisis(emocionFilter, fechaDesde, fechaHasta, pagina);
+        var analisis = _analisisLogica.ObtenerAnalisis(emocionFilter, fechaDesde, fechaHasta, pagina, usuarioFilter);
 
         ViewBag.Emociones = _analisisLogica.ObtenerEmociones();
         ViewBag.PaginaActual = pagina;
