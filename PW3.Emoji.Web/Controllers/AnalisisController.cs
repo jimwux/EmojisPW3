@@ -14,14 +14,24 @@ public class AnalisisController : Controller
     }
 
     [HttpGet]
-    public IActionResult ListarAnalisis(int? emocionFilter, DateTime? fechaDesde = null, DateTime? fechaHasta = null, int pagina = 1)
+    public IActionResult ListarAnalisis(int? emocionFilter, DateTime? fechaDesde = null, DateTime? fechaHasta = null, int pagina = 1, int? usuarioFilter = null)
     {
         var analisis = _analisisLogica.ObtenerAnalisis(emocionFilter, fechaDesde, fechaHasta, pagina);
+
         ViewBag.Emociones = _analisisLogica.ObtenerEmociones();
         ViewBag.PaginaActual = pagina;
         ViewBag.EmocionFilter = emocionFilter;
         ViewBag.FechaDesde = fechaDesde;
         ViewBag.FechaHasta = fechaHasta;
+        ViewBag.UsuarioFilter = usuarioFilter;
+
+        bool esAdmin = HttpContext.Request.Cookies["Rol"] == "ADMIN";
+        ViewBag.EsAdmin = esAdmin;
+        if (esAdmin)
+        {
+            ViewBag.Usuarios = _analisisLogica.ObtenerUsuarios();
+        }
+
         return View(analisis);
     }
 }

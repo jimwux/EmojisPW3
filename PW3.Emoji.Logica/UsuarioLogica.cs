@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PW3.Emoji.Entidades.EF;
 
 namespace PW3.Emoji.Logica
@@ -33,6 +34,7 @@ namespace PW3.Emoji.Logica
         public Usuario? Login(string email, string password)
         {
             var usuario = _context.Usuario
+                .Include(u => u.Rol)
                 .FirstOrDefault(u => u.Email == email);
             if (usuario != null && VerificarPassword(usuario, password))
             {

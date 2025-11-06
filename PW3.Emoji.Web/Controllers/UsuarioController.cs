@@ -54,6 +54,13 @@ public class UsuarioController : Controller
                 SameSite = SameSiteMode.Strict,
                 Expires = DateTimeOffset.UtcNow.AddHours(2)
             });
+            HttpContext.Response.Cookies.Append("Rol", usuario.Rol.Nombre, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddHours(2)
+            });
             return RedirectToAction("Analizar", "Emocion");
         }
         else

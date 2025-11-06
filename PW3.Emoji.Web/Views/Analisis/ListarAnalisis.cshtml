@@ -7,6 +7,9 @@
     int? emocionFilter = ViewBag.EmocionFilter as int?;
     DateTime? fechaDesde = ViewBag.FechaDesde as DateTime?;
     DateTime? fechaHasta = ViewBag.FechaHasta as DateTime?;
+    bool esAdmin = ViewBag.EsAdmin as bool? ?? false;
+    var usuarios = ViewBag.Usuarios as List<PW3.Emoji.Entidades.EF.Usuario> ?? new List<PW3.Emoji.Entidades.EF.Usuario>();
+    int? usuarioFilter = ViewBag.UsuarioFilter as int?;
 }
 
 <h2>Listado de Análisis</h2>
@@ -31,6 +34,19 @@
             <label for="fechaHasta" class="form-label">Fecha hasta</label>
             <input type="date" id="fechaHasta" name="fechaHasta" class="form-control" value="@(fechaHasta?.ToString("yyyy-MM-dd") ?? "")" />
         </div>
+        @if (esAdmin)
+        {
+            <div class="col-md-3">
+                <label for="usuarioFilter" class="form-label">Usuario</label>
+                <select id="usuarioFilter" name="usuarioFilter" class="form-select">
+                    <option value="">Todos</option>
+                    @foreach (var usuario in usuarios)
+                    {
+                        <option value="@usuario.Id" selected="@(usuarioFilter == usuario.Id)">@usuario.Nombre</option>
+                    }
+                </select>
+            </div>
+        }
         <div class="col-md-3 d-flex align-items-end">
             <button type="submit" class="btn btn-primary">Filtrar</button>
         </div>
