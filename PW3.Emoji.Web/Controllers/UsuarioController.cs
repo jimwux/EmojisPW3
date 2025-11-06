@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PW3.Emoji.Entidades.EF;
 using PW3.Emoji.Logica;
+using PW3.Emoji.Web.Filters;
 using PW3.Emoji.Web.Mappers;
 using PW3.Emoji.Web.Models;
 
@@ -42,20 +44,28 @@ public class UsuarioController : Controller
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public IActionResult Login(string email, string password)
     {
         var usuario = _usuarioLogica.Login(email, password);
-    if (usuario != null)
-    {
-        HttpContext.Session.SetInt32("UsuarioId", usuario.Id);
-        HttpContext.Session.SetString("Rol", usuario.Rol.Nombre);
-        return RedirectToAction("Analizar", "Emocion");
-    }
+        if (usuario != null)
+        {
+            HttpContext.Session.SetInt32("UsuarioId", usuario.Id);
+            HttpContext.Session.SetString("Rol", usuario.Rol.Nombre);
+            return RedirectToAction("Analizar", "Emocion");
+        }
         else
         {
             TempData["Error"] = "Credenciales inválidas. Por favor, intente de nuevo.";
             return View();
         }
+    }
+
+    [RequireLogin]
+    public IActionResult CerrarSesion()
+    {
+        HttpContext.Session.Clear();
+        return RedirectToAction("Login");
     }
 
 }

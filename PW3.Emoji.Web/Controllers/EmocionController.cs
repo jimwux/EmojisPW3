@@ -4,9 +4,11 @@ using PW3.Emoji.Logica;
 using System;
 using System.IO;
 using PW3.Emoji.Logica.Utils;
+using PW3.Emoji.Web.Filters;
 
 namespace PW3.Emoji.Web.Controllers;
 
+[RequireLogin]
 public class EmocionController : Controller
 {
     private readonly ILogger<EmocionController> _logger;
@@ -23,10 +25,6 @@ public class EmocionController : Controller
     [HttpGet]
     public IActionResult Analizar()
     {
-        if (!HttpContext.Session.TryGetValue("UsuarioId", out _))
-        {
-            return RedirectToAction("Login", "Usuario");
-        }
         return View();
     }
 
@@ -35,12 +33,6 @@ public class EmocionController : Controller
     {
         if (imagen == null || imagen.Length == 0)
             return View("Analizar");
-
-        // Obtener el ID del usuario
-        if (!HttpContext.Session.TryGetValue("UsuarioId", out _))
-        {
-            return RedirectToAction("Login", "Usuario");
-        }
 
         int? usuarioId = HttpContext.Session.GetInt32("UsuarioId");
         if (usuarioId == null)
