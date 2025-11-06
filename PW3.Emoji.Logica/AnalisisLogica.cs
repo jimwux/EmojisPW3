@@ -6,6 +6,7 @@ namespace PW3.Emoji.Logica;
 public interface IAnalisisLogica
 {
     List<AnalisisResultado> ObtenerAnalisis(int? emocionFilter, DateTime? fechaDesde, DateTime? fechaHasta, int pagina);
+    List<Emocion> ObtenerEmociones();
 }
 
 public class AnalisisLogica : IAnalisisLogica
@@ -33,5 +34,10 @@ public class AnalisisLogica : IAnalisisLogica
             .ToList();
 
         return resultados;
+    }
+
+    public List<Emocion> ObtenerEmociones()
+    {
+        return _context.Emocion.ToList();
     }
 }

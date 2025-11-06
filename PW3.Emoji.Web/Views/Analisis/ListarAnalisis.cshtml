@@ -3,9 +3,39 @@
 @{
     ViewData["Title"] = "Listado de Análisis";
     var paginaActual = ViewBag.PaginaActual as int? ?? 1;
+    var emociones = ViewBag.Emociones as List<PW3.Emoji.Entidades.EF.Emocion> ?? new List<PW3.Emoji.Entidades.EF.Emocion>();
+    int? emocionFilter = ViewBag.EmocionFilter as int?;
+    DateTime? fechaDesde = ViewBag.FechaDesde as DateTime?;
+    DateTime? fechaHasta = ViewBag.FechaHasta as DateTime?;
 }
 
 <h2>Listado de Análisis</h2>
+
+<form method="get" asp-action="ListarAnalisis" class="mb-3">
+    <div class="row">
+        <div class="col-md-3">
+            <label for="emocionFilter" class="form-label">Emoción</label>
+            <select id="emocionFilter" name="emocionFilter" class="form-select">
+                <option value="">Todas</option>
+                @foreach (var emocion in emociones)
+                {
+                    <option value="@emocion.Id" selected="@(emocionFilter == emocion.Id)">@emocion.Descripcion</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="fechaDesde" class="form-label">Fecha desde</label>
+            <input type="date" id="fechaDesde" name="fechaDesde" class="form-control" value="@(fechaDesde?.ToString("yyyy-MM-dd") ?? "")" />
+        </div>
+        <div class="col-md-3">
+            <label for="fechaHasta" class="form-label">Fecha hasta</label>
+            <input type="date" id="fechaHasta" name="fechaHasta" class="form-control" value="@(fechaHasta?.ToString("yyyy-MM-dd") ?? "")" />
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </div>
+    </div>
+</form>
 
 <table class="table table-striped">
     <thead>
@@ -40,7 +70,18 @@
     @{
         var estiloDeshabilitado = paginaActual <= 1 ? "pointer-events: none; opacity: 0.5;" : "";
     }
-    <a asp-action="ListarAnalisis" asp-route-pagina="@(ViewBag.PaginaActual - 1)" class="btn btn-secondary" style="@estiloDeshabilitado">Anterior</a>
-    <span>Página @ViewBag.PaginaActual</span>
-    <a asp-action="ListarAnalisis" asp-route-pagina="@(ViewBag.PaginaActual + 1)" class="btn btn-secondary">Siguiente</a>
+    <a asp-action="ListarAnalisis"
+       asp-route-emocionFilter="@emocionFilter"
+       asp-route-fechaDesde="@(fechaDesde?.ToString("yyyy-MM-dd"))"
+       asp-route-fechaHasta="@(fechaHasta?.ToString("yyyy-MM-dd"))"
+       asp-route-pagina="@(paginaActual - 1)"
+       class="btn btn-secondary"
+       style="@estiloDeshabilitado">Anterior</a>
+    <span>Página @paginaActual</span>
+    <a asp-action="ListarAnalisis"
+       asp-route-emocionFilter="@emocionFilter"
+       asp-route-fechaDesde="@(fechaDesde?.ToString("yyyy-MM-dd"))"
+       asp-route-fechaHasta="@(fechaHasta?.ToString("yyyy-MM-dd"))"
+       asp-route-pagina="@(paginaActual + 1)"
+       class="btn btn-secondary">Siguiente</a>
 </div>

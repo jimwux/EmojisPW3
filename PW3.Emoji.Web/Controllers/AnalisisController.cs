@@ -17,6 +17,11 @@ public class AnalisisController : Controller
     public IActionResult ListarAnalisis(int? emocionFilter, DateTime? fechaDesde = null, DateTime? fechaHasta = null, int pagina = 1)
     {
         var analisis = _analisisLogica.ObtenerAnalisis(emocionFilter, fechaDesde, fechaHasta, pagina);
+        ViewBag.Emociones = _analisisLogica.ObtenerEmociones();
+        ViewBag.PaginaActual = pagina;
+        ViewBag.EmocionFilter = emocionFilter;
+        ViewBag.FechaDesde = fechaDesde;
+        ViewBag.FechaHasta = fechaHasta;
         return View(analisis);
     }
 }
