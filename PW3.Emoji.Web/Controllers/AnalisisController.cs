@@ -16,9 +16,12 @@ public class AnalisisController : Controller
     [HttpGet]
     public IActionResult ListarAnalisis(int? emocionFilter, DateTime? fechaDesde = null, DateTime? fechaHasta = null, int pagina = 1, int? usuarioFilter = null)
     {
-        bool esAdmin = HttpContext.Request.Cookies["Rol"] == "ADMIN";
-        string? usuarioId = esAdmin ? null : HttpContext.Request.Cookies["UsuarioId"];
-        int? usuarioIdInt = string.IsNullOrEmpty(usuarioId) ? null : Convert.ToInt32(usuarioId);
+        if (!HttpContext.Session.TryGetValue("UsuarioId", out _))
+        {
+            return RedirectToAction("Login", "Usuario");
+        }
+        bool esAdmin = HttpContext.Session.GetString("Rol") == "ADMIN";
+        int? usuarioIdInt = esAdmin ? null : HttpContext.Session.GetInt32("UsuarioId");
         var analisis = _analisisLogica.ObtenerAnalisis(usuarioIdInt, emocionFilter, fechaDesde, fechaHasta, pagina, usuarioFilter, esAdmin);
 
         ViewBag.Emociones = _analisisLogica.ObtenerEmociones();

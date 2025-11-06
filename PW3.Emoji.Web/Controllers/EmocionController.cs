@@ -23,7 +23,7 @@ public class EmocionController : Controller
     [HttpGet]
     public IActionResult Analizar()
     {
-        if (!HttpContext.Request.Cookies.ContainsKey("UsuarioId"))
+        if (!HttpContext.Session.TryGetValue("UsuarioId", out _))
         {
             return RedirectToAction("Login", "Usuario");
         }
@@ -37,8 +37,13 @@ public class EmocionController : Controller
             return View("Analizar");
 
         // Obtener el ID del usuario
-        if (!HttpContext.Request.Cookies.TryGetValue("UsuarioId", out string? usuarioIdString) 
-            || !int.TryParse(usuarioIdString, out int usuarioId))
+        if (!HttpContext.Session.TryGetValue("UsuarioId", out _))
+        {
+            return RedirectToAction("Login", "Usuario");
+        }
+
+        int? usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+        if (usuarioId == null)
         {
             TempData["Error"] = "Tu sesión ha expirado. Por favor, inicia sesión.";
             return RedirectToAction("Login", "Usuario");
@@ -97,7 +102,7 @@ public class EmocionController : Controller
             }
 
             // Guardar el análisis en la BD
-            await _analisisEmocionLogica.GuardarAnalisisAsync(emocionNombre, usuarioId, rutaParaDb, emocionPrincipal.Confidence);
+            await _analisisEmocionLogica.GuardarAnalisisAsync(emocionNombre, usuarioId.Value, rutaParaDb, emocionPrincipal.Confidence);
 
             // Pasar datos a la vista
             ViewBag.Emocion = EmotionTraduction.Traduct(emocionNombre);
