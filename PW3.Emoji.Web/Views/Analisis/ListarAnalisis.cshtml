@@ -2,102 +2,160 @@
 
 @{
     ViewData["Title"] = "Listado de Análisis";
-    var paginaActual = ViewBag.PaginaActual as int? ?? 1;
-    var emociones = ViewBag.Emociones as List<PW3.Emoji.Entidades.EF.Emocion> ?? new List<PW3.Emoji.Entidades.EF.Emocion>();
+    var nombreUsuario = ViewBag.NombreUsuario as string ?? "Usuario";
+    bool esAdmin = ViewBag.EsAdmin as bool? ?? false;
+    var emociones = ViewBag.Emociones as List<PW3.Emoji.Entidades.EF.Emocion> ?? new();
+    var usuarios = ViewBag.Usuarios as List<PW3.Emoji.Entidades.EF.Usuario> ?? new();
     int? emocionFilter = ViewBag.EmocionFilter as int?;
+    int? usuarioFilter = ViewBag.UsuarioFilter as int?;
     DateTime? fechaDesde = ViewBag.FechaDesde as DateTime?;
     DateTime? fechaHasta = ViewBag.FechaHasta as DateTime?;
-    bool esAdmin = ViewBag.EsAdmin as bool? ?? false;
-    var usuarios = ViewBag.Usuarios as List<PW3.Emoji.Entidades.EF.Usuario> ?? new List<PW3.Emoji.Entidades.EF.Usuario>();
-    int? usuarioFilter = ViewBag.UsuarioFilter as int?;
+    var paginaActual = ViewBag.PaginaActual as int? ?? 1;
 }
 
-<h2>Listado de Análisis</h2>
+<div class="listado-analisis-wrapper">
+    <!-- HEADER -->
+    <div class="listado-header">
+        <span class="emoji me-2">🤗</span>
+        <span>¡Hola @nombreUsuario!</span>
+    </div>
 
-<form method="get" asp-action="ListarAnalisis" class="mb-3">
-    <div class="row">
-        <div class="col-md-3">
-            <label for="emocionFilter" class="form-label">Emoción</label>
-            <select id="emocionFilter" name="emocionFilter" class="form-select">
-                <option value="">Todas</option>
-                @foreach (var emocion in emociones)
-                {
-                    <option value="@emocion.Id" selected="@(emocionFilter == emocion.Id)">@emocion.Descripcion</option>
-                }
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label for="fechaDesde" class="form-label">Fecha desde</label>
-            <input type="date" id="fechaDesde" name="fechaDesde" class="form-control" value="@(fechaDesde?.ToString("yyyy-MM-dd") ?? "")" />
-        </div>
-        <div class="col-md-3">
-            <label for="fechaHasta" class="form-label">Fecha hasta</label>
-            <input type="date" id="fechaHasta" name="fechaHasta" class="form-control" value="@(fechaHasta?.ToString("yyyy-MM-dd") ?? "")" />
-        </div>
+    @if (esAdmin)
+    {
+        <h3 class="titulo-analisis">Listado de análisis</h3>
+    }
+    else
+    {
+        <h3 class="titulo-analisis">Tus análisis</h3>
+    }
+
+    <!-- FILTROS -->
+    <form method="get" asp-action="ListarAnalisis" class="filtros-analisis">
+
         @if (esAdmin)
         {
-            <div class="col-md-3">
-                <label for="usuarioFilter" class="form-label">Usuario</label>
+            <div class="busqueda-usuario mb-3">
                 <select id="usuarioFilter" name="usuarioFilter" class="form-select">
-                    <option value="">Todos</option>
+                    <option value="">
+                        <i class="fa-solid fa-user text-warning"></i>
+                        Todos los usuarios
+                    </option>
                     @foreach (var usuario in usuarios)
                     {
-                        <option value="@usuario.Id" selected="@(usuarioFilter == usuario.Id)">@usuario.Nombre</option>
+                        <option value="@usuario.Id" selected="@(usuarioFilter == usuario.Id)">
+                            @usuario.Nombre
+                        </option>
                     }
                 </select>
             </div>
         }
-        <div class="col-md-3 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary">Filtrar</button>
+
+        <div class="filtros-row">
+            <input type="date" id="fechaDesde" name="fechaDesde"
+                   value="@(fechaDesde?.ToString("yyyy-MM-dd"))"
+                   class="form-control" placeholder="Fecha desde" />
+
+            <input type="date" id="fechaHasta" name="fechaHasta"
+                   value="@(fechaHasta?.ToString("yyyy-MM-dd"))"
+                   class="form-control" placeholder="Fecha hasta" />
+
+            <select id="emocionFilter" name="emocionFilter" class="form-select">
+                <option value="">Todas las emociones</option>
+                @foreach (var emocion in emociones)
+                {
+                    <option value="@emocion.Id" selected="@(emocionFilter == emocion.Id)">
+                        @emocion.Descripcion
+                    </option>
+                }
+            </select>
+
+            <!-- Nuevo select visual -->
+            <select id="orden" name="orden" class="form-select">
+                <option value="nuevos">Más nuevos</option>
+                <option value="antiguos">Más antiguos</option>
+            </select>
+
+            <button type="submit" class="btn-filtrar">
+                <i class="fa-solid fa-magnifying-glass me-2"></i> Filtrar
+            </button>
         </div>
-    </div>
-</form>
+    </form>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Fecha de Análisis</th>
-            <th>Emoción</th>
-            <th>Usuario</th>
-            <th>Confianza</th>
-            <th>Imagen</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var analisis in Model)
+    <!-- LISTADO -->
+    <div class="analisis-tabla">
+        <div class="analisis-header-row">
+            <span class="text-start ms-2">Imagen</span>
+            @if (esAdmin)
+            {
+                <span class="text-start ms-2">Usuario</span>
+            }
+            <span>Fecha de realización</span>
+            <span>Emoción obtenida</span>
+            <span>Confianza</span>
+            <span class="text-end me-2">Emoji</span>
+        </div>
+
+        @if (Model.Any())
         {
-            <tr>
-                <td>@analisis.FechaAnalisis.ToString("dd/MM/yyyy HH:mm")</td>
-                <td>@analisis.Emocion?.Descripcion</td>
-                <td>@analisis.Usuario?.Nombre</td>
-                <td>@analisis.Confianza.ToString("P2")</td>
-                <td>
-                    @if (analisis.Imagen != null && !string.IsNullOrEmpty(analisis.Imagen.Ruta))
+            @foreach (var analisis in Model)
+            {
+                <div class="analisis-item">
+                    <div class="analisis-col imagen ms-2">
+                        <img src="@analisis.Imagen?.Ruta" alt="Imagen" />
+                    </div>
+                    @if (esAdmin)
                     {
-                        <img src="@analisis.Imagen.Ruta" alt="Imagen" width="60" />
+                        <div class="analisis-col usuario">
+                            @analisis.Usuario?.Nombre
+                        </div>
                     }
-                </td>
-            </tr>
+                    <div class="analisis-col fecha">
+                        @analisis.FechaAnalisis.ToString("dd/MM/yyyy")
+                    </div>
+                    <div class="analisis-col emocion">
+                        @analisis.Emocion?.Descripcion
+                    </div>
+                    <div class="analisis-col confianza">
+                        @analisis.Confianza.ToString("P2")
+                    </div>
+                    <div class="analisis-col emoji me-2">
+                        <img src="@Url.Content($"~/assets/emotions/{analisis.Emocion?.Nombre}.svg")" alt="Emoji emoción" />
+                    </div>
+                </div>
+            }
         }
-    </tbody>
-</table>
+        else
+        {
+            <p class="sin-resultados">
+                No se encontraron análisis para los filtros seleccionados.
+            </p>
+        }
+    </div>
 
-<div>
-    @{
-        var estiloDeshabilitado = paginaActual <= 1 ? "pointer-events: none; opacity: 0.5;" : "";
-    }
-    <a asp-action="ListarAnalisis"
-       asp-route-emocionFilter="@emocionFilter"
-       asp-route-fechaDesde="@(fechaDesde?.ToString("yyyy-MM-dd"))"
-       asp-route-fechaHasta="@(fechaHasta?.ToString("yyyy-MM-dd"))"
-       asp-route-pagina="@(paginaActual - 1)"
-       class="btn btn-secondary"
-       style="@estiloDeshabilitado">Anterior</a>
-    <span>Página @paginaActual</span>
-    <a asp-action="ListarAnalisis"
-       asp-route-emocionFilter="@emocionFilter"
-       asp-route-fechaDesde="@(fechaDesde?.ToString("yyyy-MM-dd"))"
-       asp-route-fechaHasta="@(fechaHasta?.ToString("yyyy-MM-dd"))"
-       asp-route-pagina="@(paginaActual + 1)"
-       class="btn btn-secondary">Siguiente</a>
+    <!-- PAGINACIÓN -->
+    <div class="paginacion">
+        @{
+            var prevDisabled = paginaActual <= 1 ? "disabled" : "";
+        }
+
+        <a asp-action="ListarAnalisis"
+           asp-route-emocionFilter="@emocionFilter"
+           asp-route-fechaDesde="@(fechaDesde?.ToString("yyyy-MM-dd"))"
+           asp-route-fechaHasta="@(fechaHasta?.ToString("yyyy-MM-dd"))"
+           asp-route-pagina="@(paginaActual - 1)"
+           class="btn @prevDisabled">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+
+        <span class="activo">@paginaActual</span>
+
+        <a asp-action="ListarAnalisis"
+           asp-route-emocionFilter="@emocionFilter"
+           asp-route-fechaDesde="@(fechaDesde?.ToString("yyyy-MM-dd"))"
+           asp-route-fechaHasta="@(fechaHasta?.ToString("yyyy-MM-dd"))"
+           asp-route-pagina="@(paginaActual + 1)"
+           class="btn">
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+    </div>
 </div>

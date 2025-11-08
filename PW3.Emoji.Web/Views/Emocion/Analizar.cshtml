@@ -1,24 +1,66 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Cargá tu fotografía";
 }
 
-@{
-    ViewData["Title"] = "Analizar Emoción";
-}
+<div class="analizar-container">
+    <form asp-action="Analizar" method="post" enctype="multipart/form-data">
+        <!-- Texto principal -->
+        <div class="text-section">
+            <h1>¡Descubrí tu emoción!</h1>
+            <p>Subí una foto en formato JPG y dejá que los emojis hablen</p>
+            <button type="submit" class="btn-analizar">
+                <img src="~/assets/icons/emoji-pensando.svg" alt="Analizar ícono" />
+                Analizar
+            </button>
+        </div>
 
-<h2>Analizar Emoción</h2>
+        <!-- Círculo de subida DENTRO DEL FORM para que el archivo se envíe -->
+        <div class="upload-wrapper">
+            <label class="upload-circle">
+                <input type="file" id="fileInput" name="imagen" accept="image/*" required />
+                <img src="~/assets/icons/camara-destello.svg" alt="Cámara" />
+                <h3>Seleccioná tu imagen</h3>
+                <p>o arrastrala y soltala acá</p>
+                <span class="file-name"></span>
+            </label>
+        </div>
 
-<form asp-action="Analizar" method="post" enctype="multipart/form-data">
-    <div>
-        <label for="imagen">Seleccionar imagen:</label>
-        <input type="file" name="imagen" accept="image/*" required />
-    </div>
-    <button type="submit">Analizar</button>
-</form>
 
-@if (TempData["Error"] != null)
-{
-    <p style="color:red">@TempData["Error"]</p>
+        @* Mensajes (TempData persiste tras Redirect; ViewBag si devuelves la misma vista) *@
+        @if (TempData["Error"] != null)
+        {
+            <p class="msg-error">@TempData["Error"]</p>
+        }
+        else if (ViewBag.Error != null)
+        {
+            <p class="msg-error">@ViewBag.Error</p>
+        }
+        @if (TempData["Message"] != null)
+        {
+            <p class="msg-info">@TempData["Message"]</p>
+        }
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('fileInput');
+            const fileNameEl = document.querySelector('.file-name');
+            const uploadText = document.querySelector('.upload-circle h3');
+            const uploadSub = document.querySelector('.upload-circle p');
+            const uploadIcon = document.querySelector('.upload-circle img');
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    fileNameEl.textContent = file.name;
+                    fileNameEl.style.display = 'inline-block';
+                    uploadText.style.display = 'none';
+                    uploadSub.style.display = 'none';
+                    uploadIcon.style.opacity = '0.7';
+                }
+            });
+        });
+    </script>
 }

@@ -8,6 +8,8 @@ namespace PW3.Emoji.Logica
     {
         void CrearUsuario(Usuario usuario);
         Usuario? Login(string email, string password);
+        Usuario? ObtenerUsuarioPorId(int id); // nuevo
+        Task<string?> ObtenerNombrePorIdAsync(int id); // agregado async
     }
 
     public class UsuarioLogica : IUsuarioLogica
@@ -48,6 +50,20 @@ namespace PW3.Emoji.Logica
             var hasher = new PasswordHasher<Usuario>();
             var resultado = hasher.VerifyHashedPassword(usuario, usuario.HashPassword, passwordIngresada);
             return resultado == PasswordVerificationResult.Success;
+        }
+
+        public Usuario? ObtenerUsuarioPorId(int id)
+        {
+            return _context.Usuario.FirstOrDefault(u => u.Id == id);
+        }
+
+        // Implementación eficiente y asincrónica: solo selecciona el nombre
+        public async Task<string?> ObtenerNombrePorIdAsync(int id)
+        {
+            return await _context.Usuario
+                .Where(u => u.Id == id)
+                .Select(u => u.Nombre)
+                .FirstOrDefaultAsync();
         }
     }
 }

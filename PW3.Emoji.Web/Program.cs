@@ -1,6 +1,7 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PW3.Emoji.Entidades.EF;
 using PW3.Emoji.Logica;
+using PW3.Emoji.Web.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,15 +12,24 @@ builder.Services.AddDbContext<PW3_EmojiContext>(options =>
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IAnalisisEmocionLogica, AnalisisEmocionLogica>();
+builder.Services.AddScoped<IAnalisisLogica, AnalisisLogica>();
 builder.Services.AddScoped<IUsuarioLogica, UsuarioLogica>();
 builder.Services.AddScoped<IRolLogica, RolLogica>();
-builder.Services.AddScoped<IAnalisisLogica, AnalisisLogica>();
 
+// Session support (required to use HttpContext.Session)
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromHours(2);
+    options.IdleTimeout = TimeSpan.FromHours(1);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+});
+
+// Register UserNameFilter and add globally
+builder.Services.AddScoped<UserNameFilter>();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.AddService<UserNameFilter>();
 });
 
 var app = builder.Build();
@@ -37,9 +47,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+// Enable session before authorization
+app.UseSession();   
 
-app.UseSession();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

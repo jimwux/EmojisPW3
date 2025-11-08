@@ -98,6 +98,7 @@ public class EmocionController : Controller
 
             // Pasar datos a la vista
             ViewBag.Emocion = EmotionTraduction.Traduct(emocionNombre);
+            ViewBag.EmocionSvg = EmotionTraduction.getImageSvg(emocionNombre);
             ViewBag.ImagenRuta = rutaParaDb;
             ViewBag.Confidence = emocionPrincipal.Confidence;
 
