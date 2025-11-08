@@ -4,13 +4,13 @@
     {
         private static readonly Dictionary<string, string> _traductions = new()
         {
-            { "happy", "Feliz 😄" },
-            { "sad", "Triste 😢" },
-            { "angry", "Enojado 😠" },
-            { "neutral", "Neutral 😐" },
-            { "fear", "Miedo 😨" },
-            { "disgust", "Disgusto 🤢" },
-            { "surprise", "Sorpresa 😮" },
+            { "happy", "FELICIDAD" },
+            { "sad", "TRISTEZA" },
+            { "angry", "ENOJO" },
+            { "neutral", "NEUTRAL" },
+            { "fear", "MIEDO" },
+            { "disgust", "DISGUSTO" },
+            { "surprise", "SORPRESA" },
         };
 
         public static string Traduct(string textEmotionEnglish)
@@ -19,6 +19,11 @@
                 ? result
                 : "Desconocido";
         }
+        public static string getImageSvg(string textEmotionEnglish)
+        {
+            return textEmotionEnglish + ".svg";
+        }
+
 
     }
 }

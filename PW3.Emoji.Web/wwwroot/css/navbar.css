@@ -1,0 +1,143 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+/* === NAVBAR GENERAL === */
+
+.navbar {
+    padding: 1.2rem 2rem;
+}
+
+.navbar-transparent {
+    background: transparent !important;
+    box-shadow: none !important;
+    position: relative;
+    z-index: 10;
+}
+
+.logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #fff !important;
+    text-decoration: none;
+    transition: opacity 0.2s ease-in-out;
+}
+
+    .logo-text:hover {
+        opacity: 0.85;
+        text-decoration: none;
+    }
+
+/* === LINKS DEL MENÚ === */
+
+.nav-item-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: #fff !important;
+    margin-left: 28px;
+    text-decoration: none;
+    transition: opacity 0.2s ease-in-out;
+}
+
+    .nav-item-text:hover {
+        opacity: 0.85;
+        text-decoration: underline;
+    }
+
+/* ======= Hover uniforme para todos los layouts ======= */
+/* selector específico para que gane sobre reglas menos específicas en site.css/login.css */
+.navbar .nav-item-text:hover,
+.navbar .nav-link:hover,
+.navbar a.nav-link:hover {
+    color: #531f06 !important;
+    text-decoration: none;
+    opacity: 0.95;
+    transition: color 150ms ease, opacity 150ms ease;
+}
+
+/* === DROPDOWN === */
+
+.dropdown-toggle::after {
+    /* contenido Font Awesome (chevron) */
+    content: "\f078";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900; /* solid */
+    display: inline-block;
+    margin-left: 0.45rem;
+    font-size: 0.9em;
+    vertical-align: middle;
+
+    /* important: eliminar los bordes que Bootstrap usa para el caret */
+    border: none;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    width: auto;
+    height: auto;
+    line-height: 1;
+    margin-bottom: 2px;
+
+    /* color y transición (hereda currentColor del enlace) */
+    color: currentColor;
+    transition: transform 200ms ease, color 150ms ease;
+}
+
+/* rotar cuando el dropdown está abierto */
+.dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu-custom {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 12px;
+    padding: 0.5rem 0;
+    min-width: 220px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(6px);
+}
+
+    .dropdown-menu-custom .dropdown-item {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        color: #333;
+        padding: 0.6rem 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+    }
+
+        .dropdown-menu-custom .dropdown-item:hover {
+            background: rgba(255, 140, 0, 0.1);
+            color: #ff7b00;
+        }
+
+/* === ADAPTACIÓN MOBILE === */
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+    }
+
+    .logo-text {
+        font-size: 22px;
+    }
+
+    .nav-item-text {
+        font-size: 18px;
+        margin-left: 0;
+        margin-top: 10px;
+        display: block;
+    }
+
+    .dropdown-menu-custom {
+        min-width: 100%;
+        border-radius: 0;
+    }
+}
+
+.emoji {
+    font-size: 24px;
+}

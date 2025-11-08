@@ -1,32 +1,70 @@
 @model PW3.Emoji.Web.Models.UsuarioViewModel
 
 @{
-    ViewData["Title"] = "Registro de Usuario";
+    Layout = "~/Views/Shared/_LayoutAuth.cshtml";
+    ViewData["Title"] = "Registrate";
 }
 
-<h2>Registro de Usuario</h2>
+<div class="login-container">
+    <div class="login-card">
+        <!-- ENCABEZADO CON IMAGEN -->
+        <div class="login-header-img">
+            <img src="~/assets/img/label-registro.png" alt="Registrate" />
+        </div>
 
-<form asp-action="Registro" method="post">
-    <div class="form-group">
-        <label asp-for="Email">Email</label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="HashPassword">Contraseña</label>
-        <input asp-for="HashPassword" type="password" class="form-control" />
-        <span asp-validation-for="HashPassword" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Nombre">Nombre</label>
-        <input asp-for="Nombre" class="form-control" />
-        <span asp-validation-for="Nombre" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Registrar</button>
-</form>
+        @if (TempData["Mensaje"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Mensaje"]
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
 
-<a asp-controller="Usuario" asp-action="Login" class="btn btn-secondary mt-2">Iniciar Sesión</a>
+        <form asp-action="Registro" method="post">
+            <div class="form-group">
+                <label asp-for="Nombre">Nombre</label>
+                <input asp-for="Nombre" class="form-control" placeholder="Ingresar nombre" required />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email">Correo electrónico</label>
+                <input asp-for="Email" type="email" class="form-control" placeholder="Ingresar correo electrónico" required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HashPassword">Contraseña</label>
+                <input asp-for="HashPassword" type="password" class="form-control" placeholder="Ingresar contraseña" required />
+                <span asp-validation-for="HashPassword" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn-continuar">Continuar</button>
+        </form>
+
+        <div class="extra-links">
+            <a asp-controller="Usuario" asp-action="Login" class="link-registro">¿Ya tenés cuenta? Iniciá sesión</a>
+        </div>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="text-danger mt-3">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <div>@error.ErrorMessage</div>
+                }
+            </div>
+        }
+    </div>
+</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

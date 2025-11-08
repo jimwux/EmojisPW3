@@ -1,0 +1,162 @@
+body.login-layout {
+    background-image: url('../assets/backgrounds/background-auth.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* antes: space-between, provoca exceso de espacio */
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ======== CONTENEDOR ======== */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* Cambiado: no usar height:100vh (provocaba overflow con el navbar).
+       Usar flex para ocupar el espacio restante dentro del body.flex */
+    flex: 1;
+    padding: 4rem 1.5rem; /* espacio superior para que la tarjeta no quede pegada al nav */
+    box-sizing: border-box;
+}
+
+/* ======== TARJETA PRINCIPAL ======== */
+.login-card {
+    position: relative;
+    width: 460px;
+    padding: 5rem 2.8rem 3.2rem 2.8rem;
+    border-radius: 35px;    
+    background: linear-gradient(180deg, rgba(60, 21, 0, 0.75) 0%, rgba(136, 56, 0, 0.75) 100%);
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 15px 45px rgba(0, 0, 0, 0.45);
+    text-align: center;
+    /* Eliminado margin-top grande (se gestiona con padding del contenedor) */
+    margin: 0;
+    overflow: visible;
+}
+
+/* ======== IMAGEN DEL ENCABEZADO ======== */
+.login-header-img {
+    position: absolute;
+    top: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+    .login-header-img img {
+        width: 400px;
+        height: auto;
+        transform: translateY(8px);
+    }
+
+/* ======== FORMULARIO ======== */
+form {
+    margin-top: 1rem;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 1.4rem;
+}
+
+    .form-group label {
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 14px;
+        background: white;
+        color: #333;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+        .form-group input:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(255, 165, 0, 0.8);
+            transform: scale(1.01);
+        }
+/* ======== BOTÓN ======== */
+.btn-continuar {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(30deg, #3c1500 0%, #883800 100%);
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition:
+        transform 0.2s ease,
+        background 0.3s ease,
+        /* sombra base + glow rojizo sutil (mismo estilo que .btn-analizar) */
+        box-shadow 0.25s ease;
+    /* glow rojizo inicial */
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.25),
+        0 0 37px 4px rgba(255, 120, 40, 0.12);
+}
+
+    .btn-continuar:hover {
+        transform: scale(1.06);
+        /* intensificar glow rojizo */
+        box-shadow:
+            0 12px 25px rgba(0, 0, 0, 0.35),
+            0 0 48px 8px rgba(255, 120, 40, 0.22);
+    }
+
+    /* ======== ENLACE AL REGISTRO ======== */
+.extra-links {
+    margin-top: 1rem;
+}
+
+.link-registro {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+    .link-registro:hover {
+        text-decoration: none;
+        color: #ffae5e; /* tono anaranjado suave */
+    }
+
+    /* ======== NAVBAR LINKS (si se usa navbar) ======== */
+
+body.login-layout {
+    display: block !important;
+    justify-content: unset !important;
+    align-items: unset !important;
+}
+
+/* Mantener comportamiento responsivo */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 3rem 1rem;
+    }
+
+    .login-card {
+        width: calc(100% - 2rem);
+        padding: 3.5rem 1.5rem 2.5rem 1.5rem;
+        border-radius: 20px;
+    }
+
+    .login-header-img img {
+        width: 260px;
+    }
+}

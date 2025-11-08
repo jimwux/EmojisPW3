@@ -9,10 +9,12 @@ public class AnalisisController : Controller
 {
 
     private readonly IAnalisisLogica _analisisLogica;
+    private readonly IUsuarioLogica _usuarioLogica;
 
-    public AnalisisController(IAnalisisLogica analisisLogica)
+    public AnalisisController(IAnalisisLogica analisisLogica, IUsuarioLogica usuarioLogica)
     {
         _analisisLogica = analisisLogica;
+        _usuarioLogica = usuarioLogica;
     }
 
     [HttpGet]
@@ -33,6 +35,13 @@ public class AnalisisController : Controller
         if (esAdmin)
         {
             ViewBag.Usuarios = _analisisLogica.ObtenerUsuarios();
+        }
+
+        var usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+        if (usuarioId.HasValue)
+        {
+            var nombre = _usuarioLogica.ObtenerUsuarioPorId(usuarioId.Value)?.Nombre ?? "Usuario";
+            ViewBag.NombreUsuario = nombre;
         }
 
         return View(analisis);

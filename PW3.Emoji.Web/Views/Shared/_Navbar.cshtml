@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<nav class="navbar navbar-expand-sm navbar-transparent">
+    <div class="container-fluid d-flex justify-content-between align-items-center px-5">
+        <a class="navbar-brand logo-text" asp-controller="Emocion" asp-action="Analizar">EmojiApp</a>
+
+        <div class="d-flex align-items-center">
+            @if (ViewBag.NombreUsuario != null)
+            {
+                <a class="nav-link nav-item-text me-3" asp-controller="Emocion" asp-action="Analizar">Cargá tu fotografía</a>
+
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle nav-item-text" href="#" id="userDropdown"
+                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="emoji me-1">🤓</span> @ViewBag.NombreUsuario
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom" aria-labelledby="userDropdown">
+                        <li>
+                            <a class="dropdown-item" asp-controller="Analisis" asp-action="ListarAnalisis"><i class="fa-solid fa-list-ul me-2"></i> Listar análisis</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-controller="Usuario" asp-action="CerrarSesion"><i class="fa-solid fa-right-from-bracket me-2"></i>Cerrar Sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <a class="nav-link nav-item-text" asp-controller="Usuario" asp-action="Login">Iniciar sesión</a>
+                <a class="nav-link nav-item-text ms-3" asp-controller="Usuario" asp-action="Registro">Registrarse</a>
+            }
+        </div>
+    </div>
+</nav>

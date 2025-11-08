@@ -33,10 +33,13 @@ public class AnalisisLogica : IAnalisisLogica
         if (usuarioFilter.HasValue)
             query = query.Where(a => a.UsuarioId == usuarioFilter.Value);
 
+        int pageSize = esAdmin ? 3 : 4;
+        pagina = Math.Max(1, pagina);
+
         return query
             .OrderByDescending(a => a.FechaAnalisis)
-            .Skip((pagina - 1) * 10)
-            .Take(10)
+            .Skip((pagina - 1) * pageSize)
+            .Take(pageSize)
             .ToList();
     }
 
