@@ -56,6 +56,7 @@ public class UsuarioController : Controller
         {
             HttpContext.Session.SetInt32("UsuarioId", usuario.Id);
             HttpContext.Session.SetString("Rol", usuario.Rol.Nombre);
+            HttpContext.Session.SetString("UsuarioNombre", usuario.Nombre);
             return RedirectToAction("Analizar", "Emocion");
         }
         else

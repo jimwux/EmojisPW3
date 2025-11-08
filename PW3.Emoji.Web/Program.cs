@@ -25,12 +25,19 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-// Register UserNameFilter and add globally
-builder.Services.AddScoped<UserNameFilter>();
-builder.Services.AddControllersWithViews(options =>
+// Registrar filtros solo si NO es Testing
+if (!builder.Environment.IsEnvironment("Testing"))
 {
-    options.Filters.AddService<UserNameFilter>();
-});
+    builder.Services.AddScoped<UserNameFilter>();
+    builder.Services.AddControllersWithViews(options =>
+    {
+        options.Filters.AddService<UserNameFilter>();
+    });
+}
+else
+{
+    builder.Services.AddControllersWithViews();
+}
 
 var app = builder.Build();
 
@@ -57,3 +64,5 @@ app.MapControllerRoute(
     pattern: "{controller=Emocion}/{action=Analizar}/{id?}");
 
 app.Run();
+
+public partial class Program { } 
