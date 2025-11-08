@@ -131,13 +131,13 @@ public class AnalisisEmocionLogicaUnitTest
                 .First(m => m.Name == nameof(IQueryProvider.Execute) && m.IsGenericMethod)
                 .MakeGenericMethod(resultType);
 
-            var result = executeMethod.Invoke(_inner, new object[] { expression });
+            var result = executeMethod.Invoke(_inner, [expression]);
             
             var fromResultMethod = typeof(Task)
                 .GetMethod(nameof(Task.FromResult))!
                 .MakeGenericMethod(resultType);
             
-            return (TResult)fromResultMethod.Invoke(null, new[] { result })!;
+            return (TResult)fromResultMethod.Invoke(null, [result])!;
         }
     }
 }
