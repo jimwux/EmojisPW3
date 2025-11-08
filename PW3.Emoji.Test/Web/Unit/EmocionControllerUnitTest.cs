@@ -10,7 +10,7 @@ using PW3.Emoji.Web.Controllers;
 using System.Drawing;
 using Xunit;
 
-namespace PW3.Emoji.Test.PW3.Emoji.Web.Unit;
+namespace PW3.Emoji.Test.Web.Unit;
 
 public class EmocionControllerUnitTest
 {

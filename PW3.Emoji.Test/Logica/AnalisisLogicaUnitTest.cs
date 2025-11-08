@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PW3.Emoji.Logica;
 using PW3.Emoji.Entidades.EF;
 
-namespace PW3.Emoji.Test.PW3.Emoji.Logica;
+namespace PW3.Emoji.Test.Logica;
 
 public class AnalisisLogicaUnitTest
 {

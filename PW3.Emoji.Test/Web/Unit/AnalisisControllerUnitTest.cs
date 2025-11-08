@@ -5,7 +5,7 @@ using PW3.Emoji.Entidades.EF;
 using PW3.Emoji.Logica;
 using PW3.Emoji.Web.Controllers;
 
-namespace PW3.Emoji.Test.PW3.Emoji.Web.Unit;
+namespace PW3.Emoji.Test.Web.Unit;
 
 public class AnalisisControllerUnitTest
 {

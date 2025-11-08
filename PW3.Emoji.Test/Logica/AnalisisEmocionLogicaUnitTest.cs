@@ -8,7 +8,7 @@ using Moq;
 using PW3.Emoji.Entidades.EF;
 using PW3.Emoji.Logica;
 
-namespace PW3.Emoji.Test.PW3.Emoji.Logica;
+namespace PW3.Emoji.Test.Logica;
 
 public class AnalisisEmocionLogicaUnitTest
 {

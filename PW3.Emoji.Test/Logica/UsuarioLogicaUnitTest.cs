@@ -4,7 +4,7 @@ using Moq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
-namespace PW3.Emoji.Test.PW3.Emoji.Logica;
+namespace PW3.Emoji.Test.Logica;
 
 public class UsuarioLogicaUnitTest
 {
