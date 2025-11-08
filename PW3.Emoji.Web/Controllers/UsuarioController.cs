@@ -19,12 +19,14 @@ public class UsuarioController : Controller
     }
 
     [HttpGet]
+    [RequireNotLogged]
     public IActionResult Registro()
     {
         return View();
     }
 
     [HttpPost]
+    [RequireNotLogged]
     public IActionResult Registro(UsuarioViewModel usuario)
     {
         if (!ModelState.IsValid)
@@ -38,6 +40,7 @@ public class UsuarioController : Controller
     }
 
     [HttpGet]
+    [RequireNotLogged]
     public IActionResult Login()
     {
         return View();
@@ -45,6 +48,7 @@ public class UsuarioController : Controller
 
     [HttpPost]
     [AllowAnonymous]
+    [RequireNotLogged]
     public IActionResult Login(string email, string password)
     {
         var usuario = _usuarioLogica.Login(email, password);
