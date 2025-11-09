@@ -11,6 +11,7 @@
     DateTime? fechaDesde = ViewBag.FechaDesde as DateTime?;
     DateTime? fechaHasta = ViewBag.FechaHasta as DateTime?;
     var paginaActual = ViewBag.PaginaActual as int? ?? 1;
+    var orden = ViewBag.Orden as string ?? "nuevos";
 }
 
 <div class="listado-analisis-wrapper">
@@ -71,9 +72,10 @@
 
             <!-- Nuevo select visual -->
             <select id="orden" name="orden" class="form-select">
-                <option value="nuevos">Más nuevos</option>
-                <option value="antiguos">Más antiguos</option>
+                <option value="nuevos" selected="@(orden == "nuevos")">Más nuevos</option>
+                <option value="antiguos" selected="@(orden == "antiguos")">Más antiguos</option>
             </select>
+
 
             <button type="submit" class="btn-filtrar">
                 <i class="fa-solid fa-magnifying-glass me-2"></i> Filtrar
@@ -143,6 +145,7 @@
            asp-route-fechaDesde="@(fechaDesde?.ToString("yyyy-MM-dd"))"
            asp-route-fechaHasta="@(fechaHasta?.ToString("yyyy-MM-dd"))"
            asp-route-pagina="@(paginaActual - 1)"
+           asp-route-orden="@orden"
            class="btn @prevDisabled">
             <i class="fa-solid fa-chevron-left"></i>
         </a>
@@ -154,6 +157,7 @@
            asp-route-fechaDesde="@(fechaDesde?.ToString("yyyy-MM-dd"))"
            asp-route-fechaHasta="@(fechaHasta?.ToString("yyyy-MM-dd"))"
            asp-route-pagina="@(paginaActual + 1)"
+           asp-route-orden="@orden"
            class="btn">
             <i class="fa-solid fa-chevron-right"></i>
         </a>
