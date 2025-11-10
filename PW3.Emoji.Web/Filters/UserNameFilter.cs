@@ -12,7 +12,7 @@ public class UserNameFilter : IAsyncActionFilter
 
         if (context.Controller is Controller ctrl)
         {
-            ctrl.ViewBag.NombreUsuario = httpContext.Session.GetString("UsuarioNombre") ?? "Usuario";
+            ctrl.ViewBag.NombreUsuario = httpContext.Session.GetString("UsuarioNombre");
         }
 
         await next();
