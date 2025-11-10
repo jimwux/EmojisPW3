@@ -34,30 +34,12 @@ namespace PW3.Emoji.Logica
         {
             _logger = logger;
             _context = context;
-            string haarCascadePath = Path.Combine(AppContext.BaseDirectory, "Models", "haarcascade_frontalface_default.xml");
-            string? haarCascadeDir = Path.GetDirectoryName(haarCascadePath);
+            string haarCascadePath = Path.Combine(AppContext.BaseDirectory, "Resources", "haarcascade_frontalface_default.xml");
             if (!File.Exists(haarCascadePath))
             {
-                if (!string.IsNullOrEmpty(haarCascadeDir))
-                    Directory.CreateDirectory(haarCascadeDir);
-                DownloadHaarCascade(haarCascadePath).Wait();
+                throw new FileNotFoundException($"No se encontró el archivo haarcascade_frontalface_default.xml en {haarCascadePath}. Copia el archivo a esa ubicación.");
             }
             _faceCascade = new CascadeClassifier(haarCascadePath);
-        }
-
-        private async Task DownloadHaarCascade(string filePath)
-        {
-            string url = "https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_default.xml";
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                using (var stream = await response.Content.ReadAsStreamAsync())
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await stream.CopyToAsync(fileStream);
-                }
-            }
         }
 
         public List<Rectangle> DetectFaces(byte[] imageData)
