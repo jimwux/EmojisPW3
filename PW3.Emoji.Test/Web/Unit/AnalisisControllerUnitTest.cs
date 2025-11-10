@@ -16,7 +16,7 @@ public class AnalisisControllerUnitTest
         var mockUsuarioLogica = new Mock<IUsuarioLogica>();
 
         var analisisList = new List<AnalisisResultado> { new AnalisisResultado { Id = 1 } };
-        mockAnalisisLogica.Setup(x => x.ObtenerAnalisis(It.IsAny<int?>(), null, null, null, 1, null, false))
+        mockAnalisisLogica.Setup(x => x.ObtenerAnalisis(It.IsAny<int?>(), null, null, null, 1, null, false, "nuevos"))
             .Returns(analisisList);
         mockAnalisisLogica.Setup(x => x.ObtenerEmociones()).Returns(new List<Emocion> { new Emocion { Id = 1, Nombre = "Feliz" } });
 
@@ -28,7 +28,14 @@ public class AnalisisControllerUnitTest
         httpContext.Session = CreateMockSession("USUARIO", 1);
         controller.ControllerContext = new ControllerContext { HttpContext = httpContext };
 
-        var result = controller.ListarAnalisis(null);
+        var result = controller.ListarAnalisis(
+            emocionFilter: null,
+            fechaDesde: null,
+            fechaHasta: null,
+            pagina: 1,
+            usuarioFilter: null,
+            orden: "nuevos"
+        );
 
         var viewResult = Assert.IsType<ViewResult>(result);
         Assert.Equal(analisisList, viewResult.Model);
@@ -44,7 +51,7 @@ public class AnalisisControllerUnitTest
         var mockUsuarioLogica = new Mock<IUsuarioLogica>();
 
         var analisisList = new List<AnalisisResultado> { new AnalisisResultado { Id = 2 } };
-        mockAnalisisLogica.Setup(x => x.ObtenerAnalisis(null, null, null, null, 1, null, true)).Returns(analisisList);
+        mockAnalisisLogica.Setup(x => x.ObtenerAnalisis(null, null, null, null, 1, null, true, "nuevos")).Returns(analisisList);
         mockAnalisisLogica.Setup(x => x.ObtenerEmociones()).Returns(new List<Emocion> { new Emocion { Id = 2, Nombre = "Triste" } });
         mockAnalisisLogica.Setup(x => x.ObtenerUsuarios()).Returns(new List<Usuario> { new Usuario { Id = 1, Nombre = "Juan" }, new Usuario { Id = 2, Nombre = "Ana" } });
 
@@ -70,7 +77,7 @@ public class AnalisisControllerUnitTest
         var mockUsuarioLogica = new Mock<IUsuarioLogica>();
 
         var analisisList = new List<AnalisisResultado>();
-        mockAnalisisLogica.Setup(x => x.ObtenerAnalisis(null, null, null, null, 1, null, false)).Returns(analisisList);
+        mockAnalisisLogica.Setup(x => x.ObtenerAnalisis(null, null, null, null, 1, null, false, "nuevos")).Returns(analisisList);
         mockAnalisisLogica.Setup(x => x.ObtenerEmociones()).Returns(new List<Emocion>());
 
         var controller = new AnalisisController(mockAnalisisLogica.Object, mockUsuarioLogica.Object);
