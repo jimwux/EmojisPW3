@@ -21,21 +21,23 @@
         <span>¡Hola @nombreUsuario!</span>
     </div>
 
-    @if (esAdmin)
-    {
-        <h3 class="titulo-analisis">Listado de análisis</h3>
-    }
-    else
-    {
-        <h3 class="titulo-analisis">Tus análisis</h3>
-    }
-
     <!-- FILTROS -->
     <form method="get" asp-action="ListarAnalisis" class="filtros-analisis">
 
         @if (esAdmin)
         {
-            <div class="busqueda-usuario mb-3">
+            <h3 class="titulo-analisis">Listado de análisis</h3>
+        }
+        else
+        {
+            <h3 class="titulo-analisis">Tus análisis</h3>
+        }
+
+        @if (esAdmin)
+        {
+            <div class="busqueda-usuario mb-3 d-flex flex-column">
+                <label for="usuarioFilter" class="ms-1">
+                    Filtrar por usuario</label>
                 <select id="usuarioFilter" name="usuarioFilter" class="form-select">
                     <option value="">
                         <i class="fa-solid fa-user text-warning"></i>
@@ -52,34 +54,60 @@
         }
 
         <div class="filtros-row">
-            <input type="date" id="fechaDesde" name="fechaDesde"
-                   value="@(fechaDesde?.ToString("yyyy-MM-dd"))"
-                   class="form-control" placeholder="Fecha desde" />
+            <div class="d-flex flex-column">
+                <label for="fechaDesde" class="ms-1">
+                    Fecha desde
+                </label>
+                <input type="date" id="fechaDesde" name="fechaDesde"
+                       value="@(fechaDesde?.ToString("yyyy-MM-dd"))"
+                       class="form-control" placeholder="Fecha desde" />
+            </div>
 
-            <input type="date" id="fechaHasta" name="fechaHasta"
-                   value="@(fechaHasta?.ToString("yyyy-MM-dd"))"
-                   class="form-control" placeholder="Fecha hasta" />
+            <div class="d-flex flex-column">
+                <label for="fechaHasta" class="ms-1">
+                    Fecha hasta
+                </label>
+                <input type="date" id="fechaHasta" name="fechaHasta"
+                       value="@(fechaHasta?.ToString("yyyy-MM-dd"))"
+                       class="form-control" placeholder="Fecha hasta" />
+            </div>
 
-            <select id="emocionFilter" name="emocionFilter" class="form-select">
-                <option value="">Todas las emociones</option>
-                @foreach (var emocion in emociones)
-                {
-                    <option value="@emocion.Id" selected="@(emocionFilter == emocion.Id)">
-                        @emocion.Descripcion
-                    </option>
-                }
-            </select>
+            <div class="d-flex flex-column">
+                <label for="emocionFilter" class="ms-1">
+                    Emoción
+                </label>
+                <select id="emocionFilter" name="emocionFilter" class="form-select">
+                    <option value="">Todas las emociones</option>
+                    @foreach (var emocion in emociones)
+                    {
+                        <option value="@emocion.Id" selected="@(emocionFilter == emocion.Id)">
+                            @emocion.Descripcion
+                        </option>
+                    }
+                </select>
+            </div>
 
-            <!-- Nuevo select visual -->
-            <select id="orden" name="orden" class="form-select">
-                <option value="nuevos" selected="@(orden == "nuevos")">Más nuevos</option>
-                <option value="antiguos" selected="@(orden == "antiguos")">Más antiguos</option>
-            </select>
+            <div class="d-flex flex-column">
+                <label for="orden" class="ms-1">
+                    Ordenar por
+                </label>
+                <select id="orden" name="orden" class="form-select">
+                    <option value="nuevos" selected="@(orden == "nuevos")">Más nuevos</option>
+                    <option value="antiguos" selected="@(orden == "antiguos")">Más antiguos</option>
+                </select>
+            </div>
 
+            <div class="acciones-filtros d-flex gap-2 align-items-end">
+                <button type="submit" class="btn-filtrar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span class="ms-2">Filtrar</span>
+                </button>
 
-            <button type="submit" class="btn-filtrar">
-                <i class="fa-solid fa-magnifying-glass me-2"></i> Filtrar
-            </button>
+                <a asp-action="ListarAnalisis" class="btn btn-clear" title="Limpiar filtros">
+                    <i class="fa-solid fa-eraser" aria-hidden="true"></i>
+                    <span class="visually-hidden">Limpiar</span>
+                </a>
+            </div>
         </div>
     </form>
 

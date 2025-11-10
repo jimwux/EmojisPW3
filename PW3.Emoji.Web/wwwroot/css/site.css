@@ -479,7 +479,7 @@ a.btn-analizar:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     color: #5a2800;
     font-family: 'Montserrat', sans-serif;
     padding-bottom: 2rem;
@@ -743,4 +743,151 @@ a.btn-analizar:hover {
     display: inline-block;
     padding: 0.2rem 0.8rem;
     border-radius: 1rem;
+}
+
+/* eliminar transform en el contenedor y aplicarlo solo a la imagen interior */
+.resultado-circulo {
+    /* keep existing rules, but NO transform here */
+    transition: none; /* quitar transform transition del contenedor */
+}
+
+    /* animar/scalear la imagen dentro, sin crear stacking context en el contenedor */
+    .resultado-circulo img {
+        transition: transform 0.3s ease;
+    }
+
+    /* antes: .resultado-circulo:hover { transform: scale(1.04); } */
+    .resultado-circulo:hover img {
+        transform: scale(1.04);
+    }
+
+/* asegurar dropdown por encima */
+.navbar {
+    position: relative;
+    z-index: 3000;
+}
+
+.dropdown-menu,
+.dropdown-menu-custom {
+    z-index: 5000 !important;
+}
+
+.filtros-analisis {
+    width: 85%; /* igual que .listado-header */
+    max-width: 1200px;
+    margin: 0.8rem auto; /* separacion contenida */
+    padding: 0; /* quitar padding lateral que inflaba el total */
+    box-sizing: border-box;
+}
+
+.filtros-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: flex-end; /* alinear inputs y botón por la base */
+    justify-content: flex-start; /* no repartir espacio sobrante */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+    /* cada control ocupa su espacio pero no estira indefinidamente */
+    .filtros-row > .d-flex,
+    .filtros-row > div {
+        flex: 0 1 220px; /* no crecer para llenar toda la fila, base 220px */
+        min-width: 160px;
+    }
+
+    /* botón a la derecha sin estirar */
+    .filtros-row .btn-filtrar {
+        margin-left: auto;
+        flex: 0 0 auto;
+        align-self: flex-end;
+    }
+
+/* responsive: en móvil ocupan toda la fila */
+@media (max-width: 768px) {
+    .filtros-analisis {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .filtros-row > .d-flex,
+    .filtros-row > div {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+
+    .filtros-row .btn-filtrar {
+        margin-left: 0;
+        align-self: center;
+    }
+}
+
+
+/* Botón limpiar (estilo secundario) */
+.btn-clear {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(255,255,255,0.9);
+    color: #7a2e00;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 0.7rem 1.2rem;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    text-decoration: none;
+}
+
+    .btn-clear:hover {
+        background: #fff;
+        transform: translateY(-2px);
+    }
+
+/* Ajustes: alineación vertical de botones con inputs en escritorio */
+@media (min-width: 769px) {
+    .filtros-row {
+        flex-wrap: nowrap;
+        align-items: flex-end; /* alinea por la base para que inputs y botones compartan la misma línea de base */
+    }
+
+        .filtros-row > .d-flex,
+        .filtros-row > div {
+            min-width: 140px;
+        }
+
+    .acciones-filtros {
+        display: flex !important;
+        gap: 0.6rem;
+        align-items: center; /* centra el contenido dentro de los botones */
+        flex: 0 0 auto;
+        margin-left: auto; /* empuja acciones al extremo derecho */
+        align-self: flex-end; /* fuerza al contenedor de botones a alinearse con la base de los inputs */
+        padding-bottom: 0.12rem; /* pequeño ajuste visual si es necesario */
+    }
+
+    /* Igualar visualmente la altura del botón principal a la de los inputs */
+    .btn-filtrar {
+        padding: 0.72rem 1.8rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: auto; /* dejar que el contenido determine altura, queda alineado por align-self */
+    }
+
+    /* Botón limpiar compacto y alineado */
+    .btn-clear {
+        padding: 0.5rem;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+        .btn-clear i {
+            margin: 0;
+        }
 }
