@@ -1,18 +1,17 @@
-﻿/* ======== FONDO PRINCIPAL ======== */
-body.app-layout {
+﻿body.app-layout {
     background-image: url('../assets/backgrounds/background-app.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100dvh; 
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     font-family: 'Montserrat', sans-serif;
 }
 
-/* ======== CONTENEDOR PRINCIPAL ======== */
+
 .analizar-container,
 .analisis-wrapper {
     flex: 1;
@@ -33,7 +32,6 @@ body.app-layout {
         flex-wrap: wrap;
     }
 
-/* ======== SECCIÓN DE TEXTO ======== */
 .text-section,
 .resultado-texto {
     color: #fff;
@@ -67,7 +65,6 @@ body.app-layout {
         color: #fff;
     }
 
-/* ======== BOTÓN PRINCIPAL ======== */
 .btn-analizar {
     background: linear-gradient(45deg, #3b1700, #7a2e00);
     color: #fff;
@@ -94,7 +91,6 @@ body.app-layout {
         height: 30px;
     }
 
-/* Unificar comportamiento del botón principal (botón/anchor) */
 .btn-analizar,
 a.btn-analizar {
     display: inline-flex;
@@ -103,9 +99,8 @@ a.btn-analizar {
     gap: 0.9rem;
     line-height: 1;
     vertical-align: middle;
-    transform-origin: center center; /* evita desplazamientos extra al escalar */
+    transform-origin: center center;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-    /* propiedades visuales existentes (repite si ya están) */
     background: linear-gradient(45deg, #3b1700, #7a2e00);
     color: #fff;
     font-weight: 700;
@@ -117,25 +112,22 @@ a.btn-analizar {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* Hover consistente */
 .btn-analizar:hover,
 a.btn-analizar:hover {
     transform: scale(1.06);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
 }
 
-/* Asegurar que la imagen dentro no desplace el texto (alineación) */
 .btn-analizar img,
 a.btn-analizar img {
     width: 30px;
     height: 30px;
-    display: block;           /* evita comportamiento baseline */
+    display: block;        
     vertical-align: middle;
     margin-right: 0.9rem;
     line-height: 1;
 }
 
-/* Unificar comportamiento del botón principal (botón/anchor) */
 .btn-analizar,
 a.btn-analizar {
     display: inline-flex;
@@ -144,9 +136,8 @@ a.btn-analizar {
     gap: 0.9rem;
     line-height: 1;
     vertical-align: middle;
-    transform-origin: center center; /* evita desplazamientos extra al escalar */
+    transform-origin: center center;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-    /* propiedades visuales existentes (repite si ya están) */
     background: linear-gradient(45deg, #3b1700, #7a2e00);
     color: #fff;
     font-weight: 700;
@@ -158,25 +149,22 @@ a.btn-analizar {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* Hover consistente */
 .btn-analizar:hover,
 a.btn-analizar:hover {
     transform: scale(1.06);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
 }
 
-/* Asegurar que la imagen dentro no desplace el texto (alineación) */
 .btn-analizar img,
 a.btn-analizar img {
     width: 30px;
     height: 30px;
-    display: block;           /* evita comportamiento baseline */
+    display: block; 
     vertical-align: middle;
     margin-right: 0.9rem;
     line-height: 1;
 }
 
-/* ======== CÍRCULOS (subida y resultado) ======== */
 .upload-circle {
     position: relative;
     width: 470px;
@@ -194,7 +182,6 @@ a.btn-analizar img {
     padding: 1.5rem;
 }
 
-    /* Borde degradado sutil */
     .upload-circle::before{
         content: "";
         position: absolute;
@@ -209,7 +196,6 @@ a.btn-analizar img {
         z-index: 1;
     }
 
-    /* ☀️ Sombreado interno más difuminado */
     .upload-circle::after{
         content: "";
         position: absolute;
@@ -219,7 +205,6 @@ a.btn-analizar img {
         z-index: 0;
     }
 
-    /* Hover: efecto de agrandado */
     .upload-circle:hover,
     .resultado-circulo:hover {
         transform: scale(1.04);
@@ -235,7 +220,6 @@ a.btn-analizar img {
         pointer-events: none;
     }
 
-    /* ======== IMAGENES ======== */
     .upload-circle img {
         width: 175px;
         z-index: 1;
@@ -243,7 +227,6 @@ a.btn-analizar img {
     }
 
 
-    /* Texto dentro del upload */
     .upload-circle h3 {
         color: rgba(248, 108, 35, 0.75);
         font-weight: 700;
@@ -259,9 +242,8 @@ a.btn-analizar img {
         z-index: 1;
     }
 
-/* Emoji superpuesto (resultado) */
 .resultado-circulo {
-    position: relative; /* NECESARIO */
+    position: relative; 
     width: 470px;
     height: 470px;
     border-radius: 50%;
@@ -276,18 +258,17 @@ a.btn-analizar img {
     .resultado-circulo::before {
         content: "";
         position: absolute;
-        inset: 0; /* margen completo */
+        inset: 0; 
         border-radius: 50%;
-        padding: 12px; /* borde visible */
+        padding: 12px;
         background: linear-gradient(145deg, #f6b45a, #f9c46c, #f8aa5c);
         -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         -webkit-mask-composite: xor;
         mask-composite: exclude;
         pointer-events: none;
-        z-index: 3; /* arriba del fondo */
+        z-index: 3;
     }
 
-    /* sombreado interno */
     .resultado-circulo::after {
         content: "";
         position: absolute;
@@ -297,7 +278,6 @@ a.btn-analizar img {
         z-index: 1;
     }
 
-    /* imagen dentro */
     .resultado-circulo img {
         width: 100%;
         height: 100%;
@@ -310,7 +290,6 @@ a.btn-analizar img {
 
 
 
-/* ======== FOOTER ======== */
 footer {
     color: #fff;
     text-align: center;
@@ -319,7 +298,6 @@ footer {
     font-size: 0.9rem;
 }
 
-/* ======== RESPONSIVE ======== */
 @media (max-width: 992px) {
     .analizar-container form,
     .analisis-container {
@@ -384,7 +362,6 @@ footer {
     }
 }
 
-/* ======== Emoji superpuesto (ajuste final) ======== */
 .resultado-circulo > .emoji-overlay {
     position: absolute !important;
     top: -50px !important;
@@ -396,7 +373,6 @@ footer {
     pointer-events: none;
 }
 
-/* ======== Ajuste para enlaces con estilo de botón ======== */
 a.btn-analizar {
     text-decoration: none;
     display: inline-flex;
@@ -428,7 +404,7 @@ a.btn-analizar {
 
 .analisis-container {
     width: 100%;
-    max-width: 1200px; /* limita el ancho del bloque y lo centra */
+    max-width: 1200px; 
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -438,31 +414,27 @@ a.btn-analizar {
     box-sizing: border-box;
 }
 
-/* Columnas con tamaños explícitos para evitar desplazamientos */
 .resultado-texto {
-    flex: 1 1 520px; /* base 520px, puede encoger o crecer */
+    flex: 1 1 520px;
     min-width: 300px;
     max-width: 520px;
 }
 
 .resultado-imagen {
-    flex: 0 0 470px; /* tamaño fijo igual que el círculo */
+    flex: 0 0 470px; 
     display: flex;
-    justify-content: center; /* centra el .resultado-circulo dentro de la columna */
+    justify-content: center; 
     align-items: center;
 }
 
-/* Botón principal: agregar glow rojizo similar a los círculos */
 .btn-analizar,
 a.btn-analizar {
-    /* sombra base + glow rojizo sutil */
     box-shadow:
         0 8px 20px rgba(0, 0, 0, 0.25),
-        0 0 37px 4px rgba(255, 120, 40, 0.12); /* glow similar a .upload-circle */
+        0 0 37px 4px rgba(255, 120, 40, 0.12);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Hover: intensificar glow rojizo */
 .btn-analizar:hover,
 a.btn-analizar:hover {
     transform: scale(1.06);
@@ -471,10 +443,6 @@ a.btn-analizar:hover {
         0 0 48px 8px rgba(255, 120, 40, 0.22);
 }
 
-
-/* === LISTADO DE ANÁLISIS (ListarAnalisis.cshtml) === */
-
-/* --- Contenedor general --- */
 .listado-analisis-wrapper {
     display: flex;
     flex-direction: column;
@@ -485,7 +453,6 @@ a.btn-analizar:hover {
     padding-bottom: 2rem;
 }
 
-/* --- Header oscuro (¡Hola Usuario!) --- */
 .listado-header {
     background: linear-gradient(180deg, #ab27098a 0%, #c65a16bd 100%);
     border-radius: 50px;
@@ -505,7 +472,6 @@ a.btn-analizar:hover {
         font-size: 2.4rem;
     }
 
-/* --- Título "Tus análisis" --- */
 .titulo-analisis {
     font-weight: 800;
     font-size: 1.8rem;
@@ -513,7 +479,6 @@ a.btn-analizar:hover {
     text-align: center;
 }
 
-/* --- Filtros --- */
 .filtros-analisis {
     width: 85%;
 }
@@ -555,7 +520,6 @@ a.btn-analizar:hover {
         transform: scale(1.05);
     }
 
-/* --- Cabecera de columnas --- */
 .analisis-header-row {
     display: grid;
     grid-template-columns: 1.2fr 1.2fr 1.2fr 1.2fr 1fr 1fr; /* 6 columnas balanceadas */
@@ -567,7 +531,6 @@ a.btn-analizar:hover {
     width: 100%;
 }
 
-/* --- Lista de análisis (sin fondo de tabla) --- */
 .analisis-tabla {
     width: 100%;
     display: flex;
@@ -577,10 +540,9 @@ a.btn-analizar:hover {
     background: none;
 }
 
-/* --- Cada fila / registro --- */
 .analisis-item {
     display: grid;
-    grid-template-columns: 1.2fr 1.2fr 1.2fr 1.2fr 1fr 1fr; /* 6 columnas balanceadas */
+    grid-template-columns: 1.2fr 1.2fr 1.2fr 1.2fr 1fr 1fr;
     align-items: center;
     background: linear-gradient(90deg, #fbe0b5 0%, #fce8c9 100%);
     border-radius: 2rem;
@@ -594,7 +556,6 @@ a.btn-analizar:hover {
         background: linear-gradient(90deg, #f9d89e 0%, #fde6c2 100%);
     }
 
-/* --- Columnas individuales --- */
 .analisis-col {
     display: flex;
     align-items: center;
@@ -603,7 +564,6 @@ a.btn-analizar:hover {
     color: #663300;
 }
 
-    /* Imagen circular */
     .analisis-col.imagen img {
         width: 55px;
         height: 55px;
@@ -611,14 +571,12 @@ a.btn-analizar:hover {
         object-fit: cover;
     }
 
-    /* Confianza */
     .analisis-col.confianza {
         font-weight: 600;
         text-align: center;
         color: #804000;
     }
 
-    /* Emoji */
     .analisis-col.emoji {
         display: flex;
         justify-content: center;
@@ -629,7 +587,6 @@ a.btn-analizar:hover {
             height: 45px;
         }
 
-/* --- Sin resultados --- */
 .sin-resultados {
     text-align: center;
     font-weight: 600;
@@ -637,7 +594,6 @@ a.btn-analizar:hover {
     margin-top: 1rem;
 }
 
-/* --- Paginación --- */
 .paginacion {
     display: flex;
     align-items: center;
@@ -676,7 +632,6 @@ a.btn-analizar:hover {
         color: #fff;
     }
 
-/* --- Animación de entrada suave --- */
 @keyframes fadeSlideIn {
     from {
         opacity: 0;
@@ -693,9 +648,6 @@ a.btn-analizar:hover {
     animation: fadeSlideIn 0.4s ease both;
 }
 
-/* === AJUSTE DE ALINEACIÓN DE CABECERA Y REGISTROS === */
-
-/* Igualamos la estructura de columnas del header y los ítems */
 .analisis-header-row,
 .analisis-item {
     display: grid;
@@ -705,7 +657,6 @@ a.btn-analizar:hover {
     margin: 0 auto;
 }
 
-/* Alineación de texto de la cabecera */
 .analisis-header-row {
     text-align: center;
     padding: 0 1rem;
@@ -717,19 +668,16 @@ a.btn-analizar:hover {
     color: #713400;
 }
 
-/* Columnas individuales dentro de los ítems */
 .analisis-col {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Imagen alineada a la izquierda */
     .analisis-col.imagen, .analisis-col.usuario {
         justify-content: flex-start;
     }
 
-/* Emoji centrado correctamente */
     .analisis-col.emoji {
         justify-content: flex-end;
     }
@@ -745,23 +693,18 @@ a.btn-analizar:hover {
     border-radius: 1rem;
 }
 
-/* eliminar transform en el contenedor y aplicarlo solo a la imagen interior */
 .resultado-circulo {
-    /* keep existing rules, but NO transform here */
-    transition: none; /* quitar transform transition del contenedor */
+    transition: none;
 }
 
-    /* animar/scalear la imagen dentro, sin crear stacking context en el contenedor */
     .resultado-circulo img {
         transition: transform 0.3s ease;
     }
 
-    /* antes: .resultado-circulo:hover { transform: scale(1.04); } */
     .resultado-circulo:hover img {
         transform: scale(1.04);
     }
 
-/* asegurar dropdown por encima */
 .navbar {
     position: relative;
     z-index: 3000;
@@ -773,10 +716,10 @@ a.btn-analizar:hover {
 }
 
 .filtros-analisis {
-    width: 85%; /* igual que .listado-header */
+    width: 85%; 
     max-width: 1200px;
-    margin: 0.8rem auto; /* separacion contenida */
-    padding: 0; /* quitar padding lateral que inflaba el total */
+    margin: 0.8rem auto; 
+    padding: 0; 
     box-sizing: border-box;
 }
 
@@ -784,27 +727,24 @@ a.btn-analizar:hover {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    align-items: flex-end; /* alinear inputs y botón por la base */
-    justify-content: flex-start; /* no repartir espacio sobrante */
+    align-items: flex-end; 
+    justify-content: flex-start; 
     width: 100%;
     box-sizing: border-box;
 }
 
-    /* cada control ocupa su espacio pero no estira indefinidamente */
     .filtros-row > .d-flex,
     .filtros-row > div {
-        flex: 0 1 220px; /* no crecer para llenar toda la fila, base 220px */
+        flex: 0 1 220px;
         min-width: 160px;
     }
 
-    /* botón a la derecha sin estirar */
     .filtros-row .btn-filtrar {
         margin-left: auto;
         flex: 0 0 auto;
         align-self: flex-end;
     }
 
-/* responsive: en móvil ocupan toda la fila */
 @media (max-width: 768px) {
     .filtros-analisis {
         width: 100%;
@@ -824,7 +764,6 @@ a.btn-analizar:hover {
 }
 
 
-/* Botón limpiar (estilo secundario) */
 .btn-clear {
     display: inline-flex;
     align-items: center;
@@ -844,11 +783,10 @@ a.btn-analizar:hover {
         transform: translateY(-2px);
     }
 
-/* Ajustes: alineación vertical de botones con inputs en escritorio */
 @media (min-width: 769px) {
     .filtros-row {
         flex-wrap: nowrap;
-        align-items: flex-end; /* alinea por la base para que inputs y botones compartan la misma línea de base */
+        align-items: flex-end; 
     }
 
         .filtros-row > .d-flex,
@@ -859,23 +797,21 @@ a.btn-analizar:hover {
     .acciones-filtros {
         display: flex !important;
         gap: 0.6rem;
-        align-items: center; /* centra el contenido dentro de los botones */
+        align-items: center; 
         flex: 0 0 auto;
-        margin-left: auto; /* empuja acciones al extremo derecho */
-        align-self: flex-end; /* fuerza al contenedor de botones a alinearse con la base de los inputs */
-        padding-bottom: 0.12rem; /* pequeño ajuste visual si es necesario */
+        margin-left: auto; 
+        align-self: flex-end;
+        padding-bottom: 0.12rem; 
     }
 
-    /* Igualar visualmente la altura del botón principal a la de los inputs */
     .btn-filtrar {
         padding: 0.72rem 1.8rem;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        height: auto; /* dejar que el contenido determine altura, queda alineado por align-self */
+        height: auto; 
     }
 
-    /* Botón limpiar compacto y alineado */
     .btn-clear {
         padding: 0.5rem;
         width: 44px;

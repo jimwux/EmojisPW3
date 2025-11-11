@@ -6,24 +6,19 @@ body.login-layout {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* antes: space-between, provoca exceso de espacio */
+    justify-content: flex-start;
     font-family: 'Montserrat', sans-serif;
 }
 
-/* ======== CONTENEDOR ======== */
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    /* Cambiado: no usar height:100vh (provocaba overflow con el navbar).
-       Usar flex para ocupar el espacio restante dentro del body.flex */
     flex: 1;
-    padding: 4rem 1.5rem; /* espacio superior para que la tarjeta no quede pegada al nav */
+    padding: 4rem 1.5rem;
     box-sizing: border-box;
 }
-
-/* ======== TARJETA PRINCIPAL ======== */
 .login-card {
     position: relative;
     width: 460px;
@@ -33,12 +28,10 @@ body.login-layout {
     backdrop-filter: blur(10px);
     box-shadow: 0px 15px 45px rgba(0, 0, 0, 0.45);
     text-align: center;
-    /* Eliminado margin-top grande (se gestiona con padding del contenedor) */
     margin: 0;
     overflow: visible;
 }
 
-/* ======== IMAGEN DEL ENCABEZADO ======== */
 .login-header-img {
     position: absolute;
     top: -70px;
@@ -53,7 +46,6 @@ body.login-layout {
         transform: translateY(8px);
     }
 
-/* ======== FORMULARIO ======== */
 form {
     margin-top: 1rem;
 }
@@ -87,7 +79,6 @@ form {
             box-shadow: 0 0 8px rgba(255, 165, 0, 0.8);
             transform: scale(1.01);
         }
-/* ======== BOTÓN ======== */
 .btn-continuar {
     width: 100%;
     padding: 0.9rem 1rem;
@@ -102,9 +93,7 @@ form {
     transition:
         transform 0.2s ease,
         background 0.3s ease,
-        /* sombra base + glow rojizo sutil (mismo estilo que .btn-analizar) */
         box-shadow 0.25s ease;
-    /* glow rojizo inicial */
     box-shadow:
         0 8px 20px rgba(0, 0, 0, 0.25),
         0 0 37px 4px rgba(255, 120, 40, 0.12);
@@ -112,13 +101,11 @@ form {
 
     .btn-continuar:hover {
         transform: scale(1.06);
-        /* intensificar glow rojizo */
         box-shadow:
             0 12px 25px rgba(0, 0, 0, 0.35),
             0 0 48px 8px rgba(255, 120, 40, 0.22);
     }
 
-    /* ======== ENLACE AL REGISTRO ======== */
 .extra-links {
     margin-top: 1rem;
 }
@@ -133,10 +120,8 @@ form {
 
     .link-registro:hover {
         text-decoration: none;
-        color: #ffae5e; /* tono anaranjado suave */
+        color: #ffae5e;
     }
-
-    /* ======== NAVBAR LINKS (si se usa navbar) ======== */
 
 body.login-layout {
     display: block !important;
@@ -144,7 +129,6 @@ body.login-layout {
     align-items: unset !important;
 }
 
-/* Mantener comportamiento responsivo */
 @media (max-width: 768px) {
     .login-container {
         padding: 3rem 1rem;
