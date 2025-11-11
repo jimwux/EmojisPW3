@@ -5,17 +5,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="data\**" />
+    <EmbeddedResource Remove="data\**" />
+    <None Remove="data\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.ML" Version="4.0.2" />
     <PackageReference Include="Microsoft.ML.ImageAnalytics" Version="4.0.2" />
     <PackageReference Include="Microsoft.ML.Vision" Version="4.0.2" />
     <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.3.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="data\train\sad\" />
-  </ItemGroup>
-  <ItemGroup Label="MLModel1">
-    <None Include="MLModel1.mlnet">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>
